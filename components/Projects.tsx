@@ -112,7 +112,7 @@ export default function Projects({ lang }: { lang: Lang }) {
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 2 }}
         className="projects-grid"
       >
-        {/* Featured */}
+        {/* Featured — TurkuMove */}
         <Card featured delay={0}>
           <div>
             <div
@@ -124,7 +124,7 @@ export default function Projects({ lang }: { lang: Lang }) {
                 textTransform: "uppercase",
               }}
             >
-              {t["p1-num"]}
+              {t["p7-num"]}
             </div>
             <h3
               style={{
@@ -136,16 +136,28 @@ export default function Projects({ lang }: { lang: Lang }) {
                 lineHeight: 1.15,
               }}
             >
-              {t["p1-title"]}
+              {t["p7-title"]}
             </h3>
             <p style={{ fontSize: 12.5, color: "var(--text)", lineHeight: 1.75, marginBottom: 20 }}>
-              {t["p1-desc"]}
+              {t["p7-desc"]}
             </p>
-            <p style={{ fontSize: 11, color: "var(--teal)", fontStyle: "italic", marginBottom: 24 }}>
-              {t["p1-note"]}
-            </p>
+            <a
+              href="https://turkumove.fi"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: 11,
+                color: "var(--teal)",
+                fontStyle: "italic",
+                marginBottom: 24,
+                display: "block",
+                textDecoration: "none",
+              }}
+            >
+              {t["p7-note"]}
+            </a>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {["Python", "Playwright", "DuckDB", "Claude API", "REST APIs", "Google Drive API"].map(
+              {["JavaScript", "Leaflet.js", "Node.js", "SEO", "Cloudflare"].map(
                 (tag) => <Tag key={tag} label={tag} />
               )}
             </div>
@@ -160,22 +172,21 @@ export default function Projects({ lang }: { lang: Lang }) {
                 marginBottom: 10,
               }}
             >
-              {t["p1-meta-steps"]}
+              {t["p7-meta-features"]}
             </div>
             <ul style={{ listStyle: "none", padding: 0, marginBottom: 32 }}>
               {[
-                t["p1-step1"],
-                t["p1-step2"],
-                t["p1-step3"],
-                t["p1-step4"],
-                t["p1-step5"],
-                t["p1-step6"],
+                t["p7-feat1"],
+                t["p7-feat2"],
+                t["p7-feat3"],
+                t["p7-feat4"],
+                t["p7-feat5"],
               ].map((s, i) => (
                 <li
                   key={i}
                   style={{
                     padding: "7px 0",
-                    borderBottom: i < 5 ? "1px solid var(--border-s)" : "none",
+                    borderBottom: i < 4 ? "1px solid var(--border-s)" : "none",
                     display: "flex",
                     gap: 12,
                     fontSize: 12,
@@ -196,13 +207,20 @@ export default function Projects({ lang }: { lang: Lang }) {
                 marginBottom: 10,
               }}
             >
-              {t["p1-arch-title"]}
+              {t["p7-tech-title"]}
             </div>
-            <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.7 }}>{t["p1-arch-desc"]}</p>
+            <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.7 }}>{t["p7-tech-desc"]}</p>
           </div>
         </Card>
 
         {[
+          {
+            num: t["p1-num"],
+            title: t["p1-title"],
+            desc: t["p1-desc"],
+            note: t["p1-note"],
+            tags: ["Python", "Playwright", "DuckDB", "Claude API", "REST APIs", "Google Drive API"],
+          },
           {
             num: t["p2-num"],
             title: t["p2-title"],
@@ -234,15 +252,7 @@ export default function Projects({ lang }: { lang: Lang }) {
             note: t["p6-note"],
             tags: ["Research", "LLM Evaluation", "UX Analysis", "AI"],
           },
-          {
-            num: t["p7-num"],
-            title: t["p7-title"],
-            desc: t["p7-desc"],
-            note: t["p7-note"],
-            noteHref: "https://turkumove.fi",
-            tags: ["JavaScript", "Leaflet.js", "Node.js", "SEO", "Cloudflare"],
-          },
-        ].map((p, i) => (
+        ].map((p: { num: string; title: string; desc: string; note?: string; noteHref?: string; tags: string[] }, i) => (
           <Card key={i} delay={i * 0.05}>
             <div>
               <div
