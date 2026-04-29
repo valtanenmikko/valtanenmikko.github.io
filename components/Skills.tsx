@@ -35,9 +35,9 @@ export default function Skills({ lang }: { lang: Lang }) {
   const t = translations[lang];
 
   const groups = [
-    { label: t["sg1-label"], items: ["Python", "SQL", "Java", "TypeScript"] },
+    { label: t["sg1-label"], items: ["Python", "SQL", "JavaScript", "TypeScript", "Java"] },
     { label: t["sg2-label"], items: ["PostgreSQL", "DuckDB", "MySQL", "MongoDB", "Pandas / NumPy"] },
-    { label: t["sg3-label"], items: ["Apache Airflow", "Docker", "Git", "Playwright", "REST APIs"] },
+    { label: t["sg3-label"], items: ["Apache Airflow", "Docker", "Git", "Node.js", "Playwright", "REST APIs"] },
     { label: t["sg4-label"], items: ["TensorFlow / Keras", "scikit-learn", "CNN / LSTM / RNN", "YOLO (v3, v8)", "Claude API", "Azure / AWS"] },
   ];
 

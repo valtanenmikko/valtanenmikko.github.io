@@ -239,8 +239,8 @@ export default function Projects({ lang }: { lang: Lang }) {
             title: t["p7-title"],
             desc: t["p7-desc"],
             note: t["p7-note"],
-            noteHref: "https://valtanenmikko.github.io/turkumove",
-            tags: ["JavaScript", "Leaflet.js", "Geocoding API", "Node.js"],
+            noteHref: "https://turkumove.fi",
+            tags: ["JavaScript", "Leaflet.js", "Node.js", "SEO", "Cloudflare"],
           },
         ].map((p, i) => (
           <Card key={i} delay={i * 0.05}>
