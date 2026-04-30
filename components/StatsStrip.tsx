@@ -83,7 +83,7 @@ export default function StatsStrip() {
   const stats = [
     { value: 7,   suffix: "",  label: "Projects",       sub: "Built & shipped",        delay: 0    },
     { value: 75,  suffix: "%", label: "Thesis accuracy", sub: "vs. human experts",     delay: 0.1  },
-    { value: 121, suffix: "+", label: "Venues mapped",   sub: "TurkuMove project",     delay: 0.2  },
+    { value: 130, suffix: "+", label: "Venues mapped",   sub: "TurkuMove project",     delay: 0.2  },
     { value: 3,   suffix: "",  label: "Years studying",  sub: "Data Engineering & AI", delay: 0.3  },
   ];
 

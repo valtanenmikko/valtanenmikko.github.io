@@ -68,16 +68,14 @@ export default function Nav({ lang, onLangChange }: NavProps) {
             <li key={l.href}>
               <a
                 href={l.href}
+                className="nav-link"
                 style={{
-                  color: "var(--muted)",
                   textDecoration: "none",
                   fontSize: 11,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--accent)")}
-                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--muted)")}
               >
                 {l.label}
               </a>
@@ -86,6 +84,7 @@ export default function Nav({ lang, onLangChange }: NavProps) {
         </ul>
         <button
           onClick={() => onLangChange(lang === "en" ? "fi" : "en")}
+          className="lang-btn-desktop"
           style={{
             background: "transparent",
             border: "1px solid var(--border-a)",
@@ -96,14 +95,6 @@ export default function Nav({ lang, onLangChange }: NavProps) {
             padding: "8px 16px",
             cursor: "pointer",
             transition: "background 0.2s, color 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.background = "var(--accent)";
-            (e.currentTarget as HTMLElement).style.color = "var(--bg)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.background = "transparent";
-            (e.currentTarget as HTMLElement).style.color = "var(--accent)";
           }}
         >
           {t["lang-btn"]}
@@ -150,6 +141,7 @@ export default function Nav({ lang, onLangChange }: NavProps) {
       {/* Hamburger */}
       <button
         aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
         onClick={() => setMenuOpen((v) => !v)}
         style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "none", flexDirection: "column", gap: 5, position: "relative", zIndex: 101 }}
         className="hamburger-btn"
@@ -182,6 +174,9 @@ export default function Nav({ lang, onLangChange }: NavProps) {
         @media (min-width: 901px) {
           nav > *:last-child { display: none !important; }
         }
+        .nav-link { color: var(--muted); }
+        .nav-link:hover, .nav-link:focus-visible { color: var(--accent); }
+        .lang-btn-desktop:hover, .lang-btn-desktop:focus-visible { background: var(--accent) !important; color: var(--bg) !important; }
       `}</style>
     </motion.nav>
   );

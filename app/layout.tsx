@@ -4,7 +4,7 @@ import "./globals.css";
 
 const syne = Syne({
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["400", "700", "800"],
   variable: "--font-syne",
   display: "swap",
 });
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${syne.variable} ${ibmPlexMono.variable}`}>
-      <body style={{ fontFamily: "var(--font-mono), monospace" }}>
+      <body style={{ fontFamily: "var(--font-syne), sans-serif" }}>
         {children}
       </body>
     </html>

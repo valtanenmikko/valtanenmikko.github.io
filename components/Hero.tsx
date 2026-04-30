@@ -236,7 +236,7 @@ export default function Hero({ lang }: { lang: Lang }) {
             display: "inline-flex",
             alignItems: "center",
             gap: 10,
-            padding: "11px 24px",
+            padding: "14px 28px",
             border: "1px solid var(--accent)",
             color: "var(--accent)",
             textDecoration: "none",
@@ -246,7 +246,7 @@ export default function Hero({ lang }: { lang: Lang }) {
             textTransform: "uppercase",
             transition: "background 0.2s, color 0.2s",
           }}
-          whileHover={{ opacity: 0.85 }}
+          whileHover={{ background: "#c96a0a", color: "#f4f1ec" }}
         >
           {t["hero-cta"]}
         </motion.a>
