@@ -1,3 +1,5 @@
+import turkumove from "./turkumove-stats.json";
+
 export type Lang = "en" | "fi";
 
 export interface Fact {
@@ -139,8 +141,8 @@ const en: Content = {
           "Admin panel that updates featured listings through the GitHub API.",
         ],
         facts: [
-          { value: "262", label: "venues" },
-          { value: "27", label: "sport categories" },
+          { value: String(turkumove.venues), label: "venues" },
+          { value: String(turkumove.categories), label: "sport categories" },
           { value: "685", label: "visitors / week" },
         ],
         stack: ["JavaScript", "Leaflet.js", "Node.js", "Cloudflare", "SEO"],
@@ -318,8 +320,8 @@ const fi: Content = {
           "Hallintapaneeli, joka päivittää nostetut paikat GitHub API:n kautta.",
         ],
         facts: [
-          { value: "262", label: "paikkaa" },
-          { value: "27", label: "lajia" },
+          { value: String(turkumove.venues), label: "paikkaa" },
+          { value: String(turkumove.categories), label: "lajia" },
           { value: "685", label: "kävijää / vko" },
         ],
         stack: ["JavaScript", "Leaflet.js", "Node.js", "Cloudflare", "SEO"],
