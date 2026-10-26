@@ -159,15 +159,14 @@ const en: Content = {
         stack: ["Python", "Playwright", "DuckDB", "Claude API", "Google Drive API"],
       },
       {
-        id: "lumi",
+        id: "edu-ai",
         kind: "Prototype · Startup collaboration",
-        title: "Lumi, an AI learning buddy for children",
-        summary:
-          "An MVP demo built on an early-stage startup's concept. A Socratic tutor for children aged 6 to 12 that never gives the answer, only the next helpful question.",
+        title: "AI learning assistant prototype",
+        summary: "An MVP demo I built for an early-stage startup: a conversational learning assistant that works with both text and voice.",
         points: [
-          "FastAPI backend on the Claude API with both text and voice conversation.",
-          "Safety rules for personal data, worrying content and being open about being an AI.",
-          "Parent page that lists the topics of each conversation, tagged by the model on every reply.",
+          "FastAPI backend on the Claude API, with speech input and output in the browser.",
+          "System prompt with guardrails for safe, age-appropriate conversation.",
+          "Lightweight topic tracking that the model tags on every reply.",
         ],
         stack: ["Python", "FastAPI", "Claude API", "JavaScript", "Speech API"],
       },
@@ -339,15 +338,14 @@ const fi: Content = {
         stack: ["Python", "Playwright", "DuckDB", "Claude API", "Google Drive API"],
       },
       {
-        id: "lumi",
+        id: "edu-ai",
         kind: "Prototyyppi · Startup-yhteistyö",
-        title: "Lumi, tekoälyoppimiskaveri lapsille",
-        summary:
-          "MVP-demo varhaisen vaiheen startupin konseptista. Sokraattinen oppimiskaveri 6–12-vuotiaille, joka ei koskaan kerro vastausta vaan kysyy seuraavan auttavan kysymyksen.",
+        title: "Tekoälyavusteisen oppimissovelluksen prototyyppi",
+        summary: "MVP-demo, jonka rakensin varhaisen vaiheen startupille: keskusteleva oppimisavustaja, joka toimii tekstillä ja puheella.",
         points: [
-          "FastAPI-taustajärjestelmä Claude API:n päällä, keskustelu tekstillä ja puheella.",
-          "Turvallisuussäännöt henkilötiedoille, huolestuttavalle sisällölle ja sille, että Lumi kertoo olevansa tekoäly.",
-          "Vanhempien sivu, joka näyttää keskustelujen aiheet. Malli merkitsee aiheen jokaiseen vastaukseen.",
+          "FastAPI-taustajärjestelmä Claude API:n päällä, puhe sisään ja ulos selaimessa.",
+          "Järjestelmäkehote, jonka rajaukset pitävät keskustelun turvallisena ja ikätasolle sopivana.",
+          "Kevyt aiheseuranta, jossa malli merkitsee aiheen jokaiseen vastaukseen.",
         ],
         stack: ["Python", "FastAPI", "Claude API", "JavaScript", "Speech API"],
       },
