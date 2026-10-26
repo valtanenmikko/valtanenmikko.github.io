@@ -1,57 +1,59 @@
 "use client";
-import { useState, useEffect } from "react";
-import type { Lang } from "@/lib/i18n";
+import { useEffect, useSyncExternalStore } from "react";
+import { MotionConfig } from "framer-motion";
+import { translations, type Lang } from "@/lib/i18n";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import Projects from "@/components/Projects";
-import AISection from "@/components/AISection";
+import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
-import BackToTop from "@/components/BackToTop";
-import StatsStrip from "@/components/StatsStrip";
 
-const Divider = () => (
-  <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 52px" }}>
-    <hr style={{ border: "none", borderTop: "1px solid var(--border-s)" }} />
-  </div>
-);
+// The chosen language lives in localStorage; the static HTML is rendered in English.
+const langListeners = new Set<() => void>();
+
+function subscribeLang(cb: () => void) {
+  langListeners.add(cb);
+  return () => langListeners.delete(cb);
+}
+
+function readLang(): Lang {
+  try {
+    return localStorage.getItem("lang") === "fi" ? "fi" : "en";
+  } catch {
+    return "en";
+  }
+}
 
 export default function Home() {
-  const [lang, setLang] = useState<Lang>("en");
+  const lang = useSyncExternalStore(subscribeLang, readLang, () => "en" as Lang);
 
   useEffect(() => {
-    const saved = localStorage.getItem("lang") as Lang | null;
-    if (saved === "fi") setLang("fi");
-  }, []);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const handleLangChange = (l: Lang) => {
-    setLang(l);
-    localStorage.setItem("lang", l);
-    document.documentElement.lang = l;
+    try {
+      localStorage.setItem("lang", l);
+    } catch {}
+    langListeners.forEach((cb) => cb());
   };
 
   return (
-    <>
-      <ScrollProgress />
-      <BackToTop />
+    <MotionConfig reducedMotion="user">
+      <a href="#main" className="skip-link">
+        {translations[lang].nav.skip}
+      </a>
       <Nav lang={lang} onLangChange={handleLangChange} />
-      <Hero lang={lang} />
-      <main>
-        <About lang={lang} />
-        <Divider />
+      <main id="main">
+        <Hero lang={lang} />
         <Projects lang={lang} />
-        <StatsStrip />
-        <Divider />
-        <AISection lang={lang} />
-        <Divider />
+        <About lang={lang} />
         <Skills lang={lang} />
-        <Divider />
         <Contact lang={lang} />
       </main>
       <Footer lang={lang} />
-    </>
+    </MotionConfig>
   );
 }

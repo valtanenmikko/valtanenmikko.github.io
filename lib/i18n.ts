@@ -1,221 +1,438 @@
 export type Lang = "en" | "fi";
 
-export const translations = {
-  en: {
-    "nav-about": "About",
-    "nav-projects": "Projects",
-    "nav-ai": "AI & DL",
-    "nav-skills": "Skills",
-    "nav-contact": "Contact",
-    "lang-btn": "FI",
-    badge: "Open to work — Turku / Helsinki / Remote",
-    "hero-eyebrow": "Data Engineer & AI Practitioner",
-    "hero-sub-1": "From ",
-    "hero-sub-bold": "sheet metal to data pipelines",
-    "hero-sub-2": " — a deliberate career change, built from scratch.",
-    "hero-sub-3": "I ship things that work.",
-    "hero-cta": "View my work →",
-    "about-label": "About",
-    "about-title-1": "A career",
-    "about-title-2": "built twice.",
-    "about-p1":
-      "I spent around five years as a sheet metal worker — graduated in 2014, worked in Turku before and after a year of military service, and left the trade in early 2020. Precise, physical work where mistakes cost time and money. In 2022 I decided to rebuild my career completely. I enrolled at Turku University of Applied Sciences and graduated in December 2025 with a BBA in Data Engineering & AI.",
-    "about-p1-bold": "around five years as a sheet metal worker",
-    "about-p1-bold2": "Data Engineering & AI",
-    "about-p2": "I think of myself as a jack of all trades — I pick up new technologies fast and find my footing across different areas of a stack. I've worked with data pipelines, machine learning, NLP, geospatial data, APIs, and frontend. Not deep in all of them, but genuinely comfortable moving between them.",
-    "about-p2-bold": "jack of all trades",
-    "about-p3": "I'm looking for a junior data engineering or data analyst role in Turku, Helsinki, or remote. I read documentation, ask when I'm stuck, and finish what I start.",
-    "about-p3-bold": "junior data engineering or data analyst role",
-    "tl1-role": "BBA — Data Engineering & AI",
-    "tl1-org": "Turku University of Applied Sciences · 2022–2025",
-    "tl1-detail": "Thesis: Comparing LLM models to human testers in UX analysis.",
-    "tl1-unit": "of usability issues matched human expert findings",
-    "tl2-role": "Web Design & Development — Internship",
-    "tl2-org": "theFIRMA, Turku · May–Aug 2024",
-    "tl2-detail": "UI mockups in Figma, frontend development, WordPress, backend participation.",
-    "tl3-role": "Sheet Metal Worker",
-    "tl3-org": "Turku · 2014–2020 (incl. military service 2015–2016)",
-    "tl3-detail": "Around five years of precision trade work — edge trim and roofing installations. Deliberate move into data & tech in 2022.",
-    "projects-label": "Projects",
-    "projects-title-1": "Things",
-    "projects-title-2": "I've built.",
-    "p1-num": "02 — Personal Project",
-    "p1-title": "Job Market Intelligence Pipeline",
-    "p1-desc": "A complete automated system for the Finnish job market. Scrapes listings from Duunitori and TE-palvelut using Playwright, sends each listing to Claude AI to extract structured fields — skills, seniority, remote status — then stores everything in DuckDB with automatic deduplication. Also generates tailored cover letters in Finnish or English.",
-    "p1-note": "→ Built end-to-end independently. Currently running in production.",
-    "p1-meta-steps": "Pipeline steps",
-    "p1-arch-title": "Architecture",
-    "p1-arch-desc": "WAT pattern — workflows define the logic, deterministic Python scripts execute it, AI handles reasoning and extraction.",
-    "p1-step1": "Scrapes Finnish job boards with Playwright",
-    "p1-step2": "AI-parses listings into structured data",
-    "p1-step3": "Stores & deduplicates in DuckDB",
-    "p1-step4": "Filters by location, seniority, recency",
-    "p1-step5": "Exports Excel report to Google Drive",
-    "p1-step6": "Generates tailored cover letters via Claude Sonnet",
-    "p2-num": "02 — School Project",
-    "p2-title": "Weather Data ETL Pipeline",
-    "p2-desc": "Automated ETL pipeline for Turku weather data using OpenWeatherMap API. Handles ingestion, cleaning, transformation, and loading to PostgreSQL — scheduled with Apache Airflow DAGs running in Docker.",
-    "p3-num": "03 — School Project",
-    "p3-title": "AIS Maritime Tracking & Prediction",
-    "p3-desc": "Collects real-time AIS vessel signals and plots ship positions on an interactive live map with heading indicators. A machine learning model predicts future routes from historical movement patterns. Includes a FastAPI layer for fetching and downloading the collected data.",
-    "p4-num": "04 — School Project",
-    "p4-title": "ML COVID-19 Analysis",
-    "p4-desc": "Used COVID-19 datasets to engineer features, then trained and evaluated both logistic and linear regression models. Compared model accuracy and performance metrics across different feature configurations.",
-    "p5-num": "05 — School Project",
-    "p5-title": "ML & NLP Research Project",
-    "p5-desc": "Research and analysis project covering machine learning fundamentals and natural language processing techniques. Applied NLP methods to real datasets and evaluated model behaviour.",
-    "p6-num": "06 — Thesis",
-    "p6-title": "LLM vs Human UX Testers",
-    "p6-desc": "Research comparing LLM models to human usability testers in UX analysis — can AI replace the expert? LLMs identified 75% of the same usability issues, suggesting real viability for early-stage analysis alongside expert work.",
-    "p6-note": "→ 75% alignment with human expert findings",
-    "p7-num": "01 — Personal Project",
-    "p7-title": "TurkuMove",
-    "p7-desc": "Interactive map of 262 sports and exercise venues in Turku across 27 sport categories. Filter, search, and browse venue details — opening hours, contact info, and directions. Includes a password-protected admin dashboard for managing premium listings. Built with Leaflet.js and a custom geocoding pipeline.",
-    "p7-note": "→ Live at turkumove.fi",
-    "p7-meta-features": "Key features",
-    "p7-feat1": "262 venues across 27 sport categories",
-    "p7-feat2": "Filter by sport type, search by name",
-    "p7-feat3": "Opening hours, contact info, and directions",
-    "p7-feat4": "Password-protected admin dashboard",
-    "p7-feat5": "Custom geocoding pipeline for all venues",
-    "p7-tech-title": "Tech & Infrastructure",
-    "p7-tech-desc": "Leaflet.js for interactive mapping, Node.js backend, Cloudflare for CDN and SEO. Independently built and deployed with a real domain.",
-    "ai-label": "AI & Deep Learning",
-    "ai-title-1": "Hands-on",
-    "ai-title-2": "with AI.",
-    "ai-intro": "Alongside data engineering, I've worked through a range of deep learning topics during my studies — computer vision, object detection, sequence modelling, and NLP. All hands-on in Python with real datasets.",
-    "ai1-title": "Computer Vision",
-    "ai1-desc": "Built and trained CNNs from scratch, applied EfficientNet fine-tuning for image classification, and worked with Oxford Pets dataset for image segmentation. Also explored 3D image classification.",
-    "ai2-title": "Object Detection",
-    "ai2-desc": "Worked with YOLOv3 and YOLOv8 for real-time object detection. Applied detection pipelines to video footage — cars and pedestrians on city streets.",
-    "ai3-title": "NLP & Sequence Models",
-    "ai3-desc": "Trained bidirectional LSTM for sentiment analysis (IMDB), built text classifiers from scratch with RNNs, and worked with Seq2Seq LSTM architectures. Also explored embeddings and text classification pipelines.",
-    "skills-label": "Skills",
-    "skills-title-1": "Technical",
-    "skills-title-2": "toolkit.",
-    "sg1-label": "Languages",
-    "sg2-label": "Data & Storage",
-    "sg3-label": "Tools & Infra",
-    "sg4-label": "AI & Deep Learning",
-    "contact-label": "Contact",
-    "contact-title-1": "Let's talk",
-    "contact-title-2": "data.",
-    "contact-text": "I'm actively looking for junior data engineering or data analyst roles in Turku, Helsinki, or remote. If you're building something data-driven and need someone who learns fast and delivers — get in touch.",
-    "avail-label": "Current status",
-    "avail-status": "Available",
-    "avail-detail-1": "Open to full-time positions",
-    "avail-detail-2": "Turku · Helsinki · Remote",
-    "avail-detail-3": "Available immediately",
-    "footer-left": "Mikko Valtanen · 2026",
-    "footer-right": "Turku, Finland",
-  },
-  fi: {
-    "nav-about": "Tietoa",
-    "nav-projects": "Projektit",
-    "nav-ai": "Tekoäly",
-    "nav-skills": "Taidot",
-    "nav-contact": "Yhteystiedot",
-    "lang-btn": "EN",
-    badge: "Avoin työtarjouksille — Turku / Helsinki / Etätyö",
-    "hero-eyebrow": "Data-insinööri & tekoälyosaaja",
-    "hero-sub-1": "",
-    "hero-sub-bold": "Teräksestä dataan",
-    "hero-sub-2": " — tietoinen alan vaihto, rakennettu alusta asti.",
-    "hero-sub-3": "Teen asioita, jotka toimivat.",
-    "hero-cta": "Katso töitäni →",
-    "about-label": "Tietoa",
-    "about-title-1": "Kahdesti",
-    "about-title-2": "rakennettu ura.",
-    "about-p1": "Olin noin viisi vuotta rakennuspeltiseppänä — valmistuin 2014, tein töitä Turussa ennen armeijaa ja sen jälkeen, ja lopetin alalla vuoden 2020 alussa. Tarkkaa, fyysistä työtä, missä virheistä maksettiin. Vuonna 2022 päätin rakentaa urani kokonaan uudelleen. Hakeuduin Turun ammattikorkeakouluun ja valmistuin joulukuussa 2025 tradenomiksi suuntautumisalana Data Engineering & AI.",
-    "about-p1-bold": "noin viisi vuotta rakennuspeltiseppänä",
-    "about-p1-bold2": "Data Engineering & AI",
-    "about-p2": "Pidän itseäni joka paikan höylänä — opin uudet teknologiat nopeasti ja löydän paikkani teknologiapinon eri kerroksissa. Olen työskennellyt dataputkien, koneoppimisen, NLP:n, paikkatiedon, rajapintojen ja frontendin parissa. En kaikissa syvällisesti, mutta liikun niiden välillä luontevasti.",
-    "about-p2-bold": "joka paikan höylänä",
-    "about-p3": "Haen junior data engineer -roolia tai data-analyytikon tehtäviä Turusta, Helsingistä tai etänä. Luen dokumentaatiot, kysyn kun jumitun, ja vien asiat loppuun.",
-    "about-p3-bold": "junior data engineer -roolia tai data-analyytikon tehtäviä",
-    "tl1-role": "Tradenomi — Data Engineering & AI",
-    "tl1-org": "Turun ammattikorkeakoulu · 2022–2025",
-    "tl1-detail": "Opinnäytetyö: LLM-mallien vertailu ihmistestaajiin UX-analyysissä.",
-    "tl1-unit": "käytettävyysongelmista tunnistettu — sama tulos kuin ihmistestaajilla",
-    "tl2-role": "Web-suunnittelu & kehitys — harjoittelu",
-    "tl2-org": "theFIRMA, Turku · touko–elokuu 2024",
-    "tl2-detail": "UI-mockupit Figmalla, frontend-kehitys, WordPress, osallistuminen backend-kehitykseen.",
-    "tl3-role": "Rakennuspeltiseppä",
-    "tl3-org": "Turku · 2014–2020 (sis. asepalvelus 2015–2016)",
-    "tl3-detail": "Noin viisi vuotta tarkkaa käsityötä — reunalistoituksia ja kattoasennuksia. Tietoinen siirtyminen data- ja teknologia-alalle 2022.",
-    "projects-label": "Projektit",
-    "projects-title-1": "Mitä olen",
-    "projects-title-2": "rakentanut.",
-    "p1-num": "02 — Projekti",
-    "p1-title": "Työmarkkinatiedon pipeline",
-    "p1-desc": "Täysin automatisoitu järjestelmä Suomen työmarkkinoiden seurantaan. Kerää ilmoituksia Duunitorista ja TE-palveluista Playwrightilla, lähettää jokaisen ilmoituksen Claude AI:lle rakenteellisten kenttien erottamiseksi, ja tallentaa kaiken DuckDB:hen automaattisella deduplikoinnilla. Luo myös räätälöityjä hakemuksia suomeksi tai englanniksi.",
-    "p1-note": "→ Rakennettu itse alusta loppuun. Pyörii tuotannossa.",
-    "p1-meta-steps": "Putkilinjan vaiheet",
-    "p1-arch-title": "Arkkitehtuuri",
-    "p1-arch-desc": "WAT-malli — workflowit määrittelevät logiikan, deterministiset Python-skriptit suorittavat, tekoäly hoitaa päättelyn ja poiminnan.",
-    "p1-step1": "Kerää suomalaiset työpaikkailmoitukset Playwrightilla",
-    "p1-step2": "Tekoäly parsii ilmoitukset rakenteelliseksi dataksi",
-    "p1-step3": "Tallentaa ja deduplikoi DuckDB:hen",
-    "p1-step4": "Suodattaa sijainnin, senioriteetin ja tuoreuden mukaan",
-    "p1-step5": "Vie Excel-raportin Google Driveen",
-    "p1-step6": "Luo räätälöidyt hakemukset Claude Sonnetilla",
-    "p2-num": "02 — Kouluprojekti",
-    "p2-title": "Säädatan ETL-putki",
-    "p2-desc": "Automatisoitu ETL-putki Turun säädatalle OpenWeatherMap-APIa käyttäen. Käsittelee datan haun, puhdistuksen, muunnoksen ja latauksen PostgreSQL:ään — ajastettu Apache Airflow DAGeilla Dockerissa.",
-    "p3-num": "03 — Kouluprojekti",
-    "p3-title": "AIS-meriliikenteen seuranta & ennustus",
-    "p3-desc": "Kerää reaaliaikaisia AIS-aluslokisignaaleja ja piirtää alusten sijainnit interaktiiviselle livekartalle suuntaindikaattoreineen. Koneoppimismalli ennustaa tulevia reittejä historiallisten liikennemallien perusteella. Sisältää FastAPI-kerroksen kerätyn datan hakemiseen ja lataamiseen.",
-    "p4-num": "04 — Kouluprojekti",
-    "p4-title": "ML COVID-19 -analyysi",
-    "p4-desc": "Käytti COVID-19-aineistoja ominaisuuksien rakentamiseen, jonka jälkeen koulutettiin ja arvioitiin sekä logistinen että lineaarinen regressiomalli. Vertailtiin mallien tarkkuutta ja suorituskykyä eri ominaisuusyhdistelmillä.",
-    "p5-num": "05 — Kouluprojekti",
-    "p5-title": "ML & NLP -tutkimusprojekti",
-    "p5-desc": "Tutkimus- ja analyysiprojekti koneoppimisen perusteista ja luonnollisen kielen käsittelymenetelmistä. Sovellettiin NLP-menetelmiä oikeisiin aineistoihin ja arvioitiin mallien toimintaa.",
-    "p6-num": "06 — Opinnäytetyö",
-    "p6-title": "LLM vs. ihmistestaajat UX-analyysissä",
-    "p6-desc": "Tutkimus, jossa vertailtiin LLM-malleja ja ihmisasiantuntijoita käytettävyysanalyysissä — voiko tekoäly korvata asiantuntijan? LLM tunnisti 75 % samoista käytettävyysongelmista, mikä viittaa käyttökelpoisuuteen varhaisen vaiheen analyysissä asiantuntijatyön rinnalla.",
-    "p6-note": "→ 75 % vastaavuus ihmisasiantuntijoiden löydöksiin",
-    "p7-num": "01 — Oma projekti",
-    "p7-title": "TurkuMove",
-    "p7-desc": "Interaktiivinen kartta 262 turkulaisesta liikuntapaikasta 27 lajikategoriassa. Suodata lajin mukaan, hae nimellä ja avaa paikan tiedot — aukioloajat, yhteystiedot ja reittiohjeet. Sisältää salasanasuojatun hallintapaneelin premium-paikkojen hallintaan. Toteutettu Leaflet.js:llä ja omalla geokoodausputkella.",
-    "p7-note": "→ Julkinen osoite: turkumove.fi",
-    "p7-meta-features": "Ominaisuudet",
-    "p7-feat1": "262 liikuntapaikkaa, 27 lajikategoriaa",
-    "p7-feat2": "Suodatus lajin mukaan, haku nimellä",
-    "p7-feat3": "Aukioloajat, yhteystiedot ja reittiohjeet",
-    "p7-feat4": "Salasanasuojattu hallintapaneeli",
-    "p7-feat5": "Räätälöity geokoodausputki kaikille paikoille",
-    "p7-tech-title": "Teknologia & infrastruktuuri",
-    "p7-tech-desc": "Leaflet.js interaktiiviseen karttaan, Node.js backend, Cloudflare CDN ja SEO. Rakennettu ja julkaistu itsenäisesti oikealla domainilla.",
-    "ai-label": "Tekoäly & Syväoppiminen",
-    "ai-title-1": "Käytännön",
-    "ai-title-2": "tekoälyä.",
-    "ai-intro": "Datainsinööriopintojen ohella olen perehtynyt laajasti syväoppimisen aiheisiin — konenäkö, objektintunnistus, sekvenssimallit ja NLP. Kaikki käytännön harjoituksia Pythonilla oikeilla aineistoilla.",
-    "ai1-title": "Konenäkö",
-    "ai1-desc": "Rakensin ja koulutin CNN:iä alusta alkaen, sovelsin EfficientNetin hienosäätöä kuvaluokitteluun ja käytin Oxford Pets -aineistoa kuvasegmentointiin. Tutkin myös 3D-kuvaluokittelua.",
-    "ai2-title": "Objektintunnistus",
-    "ai2-desc": "Työskentelin YOLOv3:n ja YOLOv8:n kanssa reaaliaikaiseen objektintunnistukseen. Sovelsin tunnistusputkia videomateriaaliin — autot ja jalankulkijat kaupunkikaduilla.",
-    "ai3-title": "NLP & Sekvenssimallit",
-    "ai3-desc": "Koulutin kaksisuuntaisen LSTM:n sentimenttianalyysiä varten (IMDB), rakensin tekstiluokittelijoita alusta alkaen RNN:illä ja työskentelin Seq2Seq LSTM -arkkitehtuurien kanssa. Tutkin myös embeddingiä ja tekstiluokitteluputkia.",
-    "skills-label": "Taidot",
-    "skills-title-1": "Tekninen",
-    "skills-title-2": "työkalupakki.",
-    "sg1-label": "Kielet",
-    "sg2-label": "Data & Tallennus",
-    "sg3-label": "Työkalut & Infra",
-    "sg4-label": "Tekoäly & Syväoppiminen",
-    "contact-label": "Yhteystiedot",
-    "contact-title-1": "Puhutaan",
-    "contact-title-2": "datasta.",
-    "contact-text": "Haen aktiivisesti junior data engineer -roolia tai data-analyytikon tehtäviä Turusta, Helsingistä tai etänä. Jos rakennat jotain datavetoista ja tarvitset jonkun, joka oppii nopeasti ja saa asiat tehtyä — ota yhteyttä.",
-    "avail-label": "Tilanne nyt",
-    "avail-status": "Vapaa",
-    "avail-detail-1": "Avoin kokopäiväisille rooleille",
-    "avail-detail-2": "Turku · Helsinki · Etätyö",
-    "avail-detail-3": "Vapaa heti",
-    "footer-left": "Mikko Valtanen · 2026",
-    "footer-right": "Turku, Suomi",
-  },
-} as const;
+export interface Fact {
+  value: string;
+  label: string;
+}
 
-export type TKey = keyof typeof translations.en;
+export interface Project {
+  id: string;
+  kind: string;
+  title: string;
+  summary: string;
+  points: string[];
+  facts?: Fact[];
+  stack: string[];
+  link?: { href: string; label: string };
+  status?: string;
+}
+
+export interface TimelineItem {
+  period: string;
+  role: string;
+  org: string;
+  detail: string;
+  link?: { href: string; label: string };
+}
+
+export interface SkillGroup {
+  label: string;
+  items: string[];
+}
+
+export interface Content {
+  nav: { projects: string; background: string; skills: string; contact: string; langBtn: string; langLabel: string; skip: string; menuOpen: string; menuClose: string };
+  hero: {
+    role: string;
+    lede: string;
+    spec: Fact[];
+    ctaPrimary: string;
+    ctaSecondary: string;
+  };
+  projects: {
+    label: string;
+    title: string;
+    intro: string;
+    featured: Project;
+    pipeline: { caption: string; sources: string; bronze: string; silver: string; llm: string; gold: string; out: string };
+    items: Project[];
+    courseworkLabel: string;
+    coursework: Project[];
+  };
+  background: {
+    label: string;
+    title: string;
+    story: string[];
+    timeline: TimelineItem[];
+  };
+  skills: {
+    label: string;
+    title: string;
+    groups: SkillGroup[];
+    extra: SkillGroup[];
+  };
+  contact: {
+    label: string;
+    title: string;
+    text: string;
+    statusLabel: string;
+    status: string;
+    statusDetail: string[];
+    newTab: string;
+  };
+  footer: { left: string; right: string };
+}
+
+const THESIS_URL = "https://www.theseus.fi/handle/10024/902146";
+
+const en: Content = {
+  nav: {
+    projects: "Projects",
+    background: "Background",
+    skills: "Skills",
+    contact: "Contact",
+    langBtn: "FI",
+    langLabel: "Vaihda kieli suomeksi",
+    skip: "Skip to content",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+  },
+  hero: {
+    role: "Junior Data Engineer",
+    lede: "I build data pipelines end to end, from raw API data to tables that answer a real business question. Python, SQL, Databricks and Airflow.",
+    spec: [
+      { label: "Degree", value: "BBA, Data Engineering & AI · Turku UAS, 2025" },
+      { label: "Based in", value: "Turku, Finland" },
+      { label: "Looking for", value: "Data engineering & AI roles" },
+      { label: "Open to", value: "Turku · Remote" },
+      { label: "Status", value: "Available now" },
+    ],
+    ctaPrimary: "View projects",
+    ctaSecondary: "Get in touch",
+  },
+  projects: {
+    label: "Projects",
+    title: "Selected work",
+    intro: "Personal projects first, coursework at the end.",
+    featured: {
+      id: "infra",
+      kind: "Personal project",
+      status: "In progress",
+      title: "Tender intelligence for infrastructure contractors",
+      summary:
+        "A bid team keeps asking three things: which open tenders are worth the effort, who are we up against, and where is competition thin. This pipeline answers them from public EU procurement data and the Finnish company register.",
+      points: [
+        "ELT pipeline on Databricks following the medallion architecture. Raw data lands unchanged in Bronze, Silver cleans and conforms it, Gold holds business-ready SQL tables.",
+        "Companies are resolved by business ID through the PRH register, not by matching names. Data quality issues found on the way are handled in code and documented.",
+        "An LLM extracts what exists only in free text, such as location and contract period. Its output is scored against structured fields that are withheld from the prompt.",
+      ],
+      stack: ["Python", "Databricks", "Delta Lake", "Spark SQL", "Unity Catalog", "Gemini API", "REST APIs"],
+    },
+    pipeline: {
+      caption: "Pipeline overview",
+      sources: "EU TED API · PRH API",
+      bronze: "Raw JSON, incremental MERGE",
+      silver: "Typed, deduplicated, resolved by business ID",
+      llm: "LLM extraction + evaluation",
+      gold: "Market share, competition, open tenders",
+      out: "Go/no-go per open tender",
+    },
+    items: [
+      {
+        id: "turkumove",
+        kind: "Personal project · Live",
+        title: "TurkuMove",
+        summary: "An interactive map of sports and exercise venues in Turku with real users. I built it alone and still run and maintain it.",
+        points: [
+          "Venue data kept as JSON with a geocoding step. A Node.js script generates static Finnish and English pages for every sport and venue, plus the sitemap.",
+          "Filter by sport, search by name, opening hours, contact details and directions.",
+          "Admin panel that updates featured listings through the GitHub API.",
+        ],
+        facts: [
+          { value: "262", label: "venues" },
+          { value: "27", label: "sport categories" },
+          { value: "685", label: "visitors / week" },
+        ],
+        stack: ["JavaScript", "Leaflet.js", "Node.js", "Cloudflare", "SEO"],
+        link: { href: "https://turkumove.fi", label: "turkumove.fi" },
+      },
+      {
+        id: "jobs",
+        kind: "Personal project",
+        title: "Job market intelligence pipeline",
+        summary: "Collects Finnish IT job listings and turns them into a filtered weekly shortlist, so nobody has to browse job boards by hand.",
+        points: [
+          "Scrapes Duunitori and TE-palvelut with Playwright.",
+          "The Claude API turns each listing into structured fields: skills, seniority and remote status.",
+          "Stores and deduplicates in DuckDB, filters by location and seniority, and exports an Excel report to Google Drive.",
+        ],
+        stack: ["Python", "Playwright", "DuckDB", "Claude API", "Google Drive API"],
+      },
+      {
+        id: "lumi",
+        kind: "Prototype · Startup collaboration",
+        title: "Lumi, an AI learning buddy for children",
+        summary:
+          "An MVP demo built on an early-stage startup's concept. A Socratic tutor for children aged 6 to 12 that never gives the answer, only the next helpful question.",
+        points: [
+          "FastAPI backend on the Claude API with both text and voice conversation.",
+          "Safety rules for personal data, worrying content and being open about being an AI.",
+          "Parent page that lists the topics of each conversation, tagged by the model on every reply.",
+        ],
+        stack: ["Python", "FastAPI", "Claude API", "JavaScript", "Speech API"],
+      },
+    ],
+    courseworkLabel: "Coursework",
+    coursework: [
+      {
+        id: "etl",
+        kind: "Coursework",
+        title: "Weather data ETL pipeline",
+        summary: "Automated ETL for Turku weather data from the OpenWeatherMap API. Ingestion, cleaning, transformation and loading into PostgreSQL, scheduled with Airflow DAGs and run in Docker.",
+        points: [],
+        stack: ["Python", "SQL", "PostgreSQL", "Apache Airflow", "Docker"],
+      },
+      {
+        id: "ais",
+        kind: "Coursework",
+        title: "AIS maritime tracking and route prediction",
+        summary: "Collects AIS vessel signals and plots ships with their headings on an interactive map. A machine learning model predicts routes from past movement, and a FastAPI layer serves the collected data.",
+        points: [],
+        stack: ["Python", "FastAPI", "Machine learning", "Geospatial"],
+      },
+    ],
+  },
+  background: {
+    label: "Background",
+    title: "A career built twice",
+    story: [
+      "I worked as a construction sheet metal worker for about five years. Precise, physical work where a mistake costs time and material. In 2022 I changed careers on purpose, enrolled at Turku University of Applied Sciences and graduated in December 2025.",
+      "Alongside the degree I took extra courses from other universities because the subjects interested me, such as Azure Fundamentals and PowerShell at Metropolia. I work well on my own, and when I'm stuck I say so and ask instead of losing a day.",
+      "Now I'm looking for my first permanent role in data engineering or AI.",
+    ],
+    timeline: [
+      {
+        period: "2022 – 2025",
+        role: "BBA, Business Information Technology · Data Engineering & AI",
+        org: "Turku University of Applied Sciences",
+        detail: "Weighted GPA 4.3 / 5. Grade 5 / 5 in Data Engineering, Cloud Services and Software Development Operations.",
+      },
+      {
+        period: "2025",
+        role: "Thesis: AI as an assistant in UX evaluation",
+        org: "Comparing large language models with human usability testers",
+        detail: "The LLMs found 75 % of the same usability issues as the human testers, compared with Jaccard similarity and Cohen's kappa. Written in Finnish, grade 4 / 5.",
+        link: { href: THESIS_URL, label: "Read on Theseus" },
+      },
+      {
+        period: "05 – 08 / 2024",
+        role: "Web Design & Development, internship",
+        org: "theFIRMA, Turku",
+        detail: "Figma mockups for an external client, frontend and backend work on internal projects, WordPress build for a citizen IT support service.",
+      },
+      {
+        period: "2014 – 2020",
+        role: "Construction sheet metal worker",
+        org: "Turku region",
+        detail: "Edge trims and roofing. Military service 2015–2016 in between. Left the trade in early 2020.",
+      },
+    ],
+  },
+  skills: {
+    label: "Skills",
+    title: "Toolkit",
+    groups: [
+      { label: "Languages", items: ["Python", "SQL", "JavaScript / TypeScript", "Java"] },
+      { label: "Data platforms", items: ["Databricks", "Delta Lake", "Spark SQL", "PostgreSQL", "DuckDB", "MySQL", "MongoDB"] },
+      { label: "Pipelines & tooling", items: ["Apache Airflow", "Docker", "Git", "GitHub Actions", "Playwright", "REST APIs", "FastAPI"] },
+      { label: "AI & analysis", items: ["Claude API", "Gemini API", "LLM evaluation", "Pandas / NumPy", "scikit-learn", "TensorFlow / Keras"] },
+    ],
+    extra: [
+      { label: "Cloud", items: ["Azure", "AWS", "Cloudflare"] },
+      { label: "Deep learning coursework", items: ["CNNs and EfficientNet fine-tuning", "YOLOv3 / v8 object detection", "LSTM and Seq2Seq models"] },
+      { label: "Spoken languages", items: ["Finnish, native", "English, B2"] },
+    ],
+  },
+  contact: {
+    label: "Contact",
+    title: "Let's talk",
+    text: "I'm looking for a junior role in data engineering or AI, in Turku or remote. Email is the fastest way to reach me.",
+    statusLabel: "Current status",
+    status: "Available",
+    statusDetail: ["Data engineering & AI roles", "Turku · Remote", "Can start immediately"],
+    newTab: "(opens in a new tab)",
+  },
+  footer: { left: "Mikko Valtanen · 2026", right: "Turku, Finland" },
+};
+
+const fi: Content = {
+  nav: {
+    projects: "Projektit",
+    background: "Tausta",
+    skills: "Osaaminen",
+    contact: "Yhteystiedot",
+    langBtn: "EN",
+    langLabel: "Switch language to English",
+    skip: "Siirry sisältöön",
+    menuOpen: "Avaa valikko",
+    menuClose: "Sulje valikko",
+  },
+  hero: {
+    role: "Junior Data Engineer",
+    lede: "Rakennan dataputkia alusta loppuun, rajapinnan raakadatasta tauluihin, jotka vastaavat oikeaan liiketoiminnan kysymykseen. Python, SQL, Databricks ja Airflow.",
+    spec: [
+      { label: "Tutkinto", value: "Tradenomi (AMK), Data Engineering & AI · Turun AMK, 2025" },
+      { label: "Sijainti", value: "Turku" },
+      { label: "Etsin", value: "Data engineering- ja AI-rooleja" },
+      { label: "Avoin", value: "Turku · Etätyö" },
+      { label: "Tilanne", value: "Vapaa heti" },
+    ],
+    ctaPrimary: "Katso projektit",
+    ctaSecondary: "Ota yhteyttä",
+  },
+  projects: {
+    label: "Projektit",
+    title: "Valittuja töitä",
+    intro: "Omat projektit ensin, kurssityöt lopussa.",
+    featured: {
+      id: "infra",
+      kind: "Oma projekti",
+      status: "Työn alla",
+      title: "Tarjouskilpailuanalytiikka infraurakoitsijoille",
+      summary:
+        "Tarjoustiimi kysyy jatkuvasti kolmea asiaa: mitkä avoimet kilpailut kannattaa tehdä, keitä vastaan kilpaillaan ja missä kilpailu on vähäistä. Tämä putki vastaa niihin EU:n julkisten hankintojen datasta ja PRH:n yritysrekisteristä.",
+      points: [
+        "ELT-putki Databricksissa medallion-arkkitehtuurilla. Raakadata tallennetaan muuttamattomana Bronzeen, Silver puhdistaa ja yhtenäistää sen, Goldissa on liiketoimintavalmiit SQL-taulut.",
+        "Yritykset tunnistetaan Y-tunnuksella PRH:n rekisterin kautta, ei nimiä vertaamalla. Matkan varrella löytyneet datan laatuongelmat on käsitelty koodissa ja dokumentoitu.",
+        "Kielimalli poimii tiedot, jotka löytyvät vain vapaasta tekstistä, kuten sijainnin ja sopimuskauden. Tulokset arvioidaan rakenteisia kenttiä vasten, joita mallille ei näytetä.",
+      ],
+      stack: ["Python", "Databricks", "Delta Lake", "Spark SQL", "Unity Catalog", "Gemini API", "REST APIs"],
+    },
+    pipeline: {
+      caption: "Putken rakenne",
+      sources: "EU TED API · PRH API",
+      bronze: "Raaka-JSON, inkrementaalinen MERGE",
+      silver: "Tyypitetty, deduplikoitu, Y-tunnuksella yhdistetty",
+      llm: "LLM-poiminta + arviointi",
+      gold: "Markkinaosuudet, kilpailu, avoimet kilpailut",
+      out: "Go/no-go jokaiselle avoimelle kilpailulle",
+    },
+    items: [
+      {
+        id: "turkumove",
+        kind: "Oma projekti · Julkaistu",
+        title: "TurkuMove",
+        summary: "Interaktiivinen kartta Turun liikuntapaikoista, oikeilla käyttäjillä. Rakensin sen yksin ja ylläpidän sitä edelleen.",
+        points: [
+          "Paikkadata JSON-muodossa geokoodausvaiheen kanssa. Node.js-skripti generoi staattiset suomen- ja englanninkieliset sivut jokaiselle lajille ja paikalle sekä sivukartan.",
+          "Suodatus lajin mukaan, haku nimellä, aukioloajat, yhteystiedot ja reittiohjeet.",
+          "Hallintapaneeli, joka päivittää nostetut paikat GitHub API:n kautta.",
+        ],
+        facts: [
+          { value: "262", label: "paikkaa" },
+          { value: "27", label: "lajia" },
+          { value: "685", label: "kävijää / vko" },
+        ],
+        stack: ["JavaScript", "Leaflet.js", "Node.js", "Cloudflare", "SEO"],
+        link: { href: "https://turkumove.fi", label: "turkumove.fi" },
+      },
+      {
+        id: "jobs",
+        kind: "Oma projekti",
+        title: "Työmarkkinadatan putki",
+        summary: "Kerää suomalaiset IT-alan työpaikkailmoitukset ja tekee niistä suodatetun viikkolistan, jottei työpaikkasivustoja tarvitse selata käsin.",
+        points: [
+          "Kerää ilmoitukset Duunitorista ja TE-palveluista Playwrightilla.",
+          "Claude API muuttaa jokaisen ilmoituksen rakenteiseksi dataksi: osaamisvaatimukset, senioriteetti ja etätyömahdollisuus.",
+          "Tallentaa ja deduplikoi DuckDB:hen, suodattaa sijainnin ja senioriteetin mukaan ja vie Excel-raportin Google Driveen.",
+        ],
+        stack: ["Python", "Playwright", "DuckDB", "Claude API", "Google Drive API"],
+      },
+      {
+        id: "lumi",
+        kind: "Prototyyppi · Startup-yhteistyö",
+        title: "Lumi, tekoälyoppimiskaveri lapsille",
+        summary:
+          "MVP-demo varhaisen vaiheen startupin konseptista. Sokraattinen oppimiskaveri 6–12-vuotiaille, joka ei koskaan kerro vastausta vaan kysyy seuraavan auttavan kysymyksen.",
+        points: [
+          "FastAPI-taustajärjestelmä Claude API:n päällä, keskustelu tekstillä ja puheella.",
+          "Turvallisuussäännöt henkilötiedoille, huolestuttavalle sisällölle ja sille, että Lumi kertoo olevansa tekoäly.",
+          "Vanhempien sivu, joka näyttää keskustelujen aiheet. Malli merkitsee aiheen jokaiseen vastaukseen.",
+        ],
+        stack: ["Python", "FastAPI", "Claude API", "JavaScript", "Speech API"],
+      },
+    ],
+    courseworkLabel: "Kurssityöt",
+    coursework: [
+      {
+        id: "etl",
+        kind: "Kurssityö",
+        title: "Säädatan ETL-putki",
+        summary: "Automatisoitu ETL Turun säädatalle OpenWeatherMap-rajapinnasta. Haku, puhdistus, muunnos ja lataus PostgreSQL:ään, ajastettu Airflow-DAGeilla ja ajettu Dockerissa.",
+        points: [],
+        stack: ["Python", "SQL", "PostgreSQL", "Apache Airflow", "Docker"],
+      },
+      {
+        id: "ais",
+        kind: "Kurssityö",
+        title: "AIS-meriliikenteen seuranta ja reittiennuste",
+        summary: "Kerää alusten AIS-signaaleja ja piirtää alukset suuntineen interaktiiviselle kartalle. Koneoppimismalli ennustaa reittejä aiemman liikkeen perusteella, ja FastAPI-kerros tarjoaa kerätyn datan.",
+        points: [],
+        stack: ["Python", "FastAPI", "Koneoppiminen", "Paikkatieto"],
+      },
+    ],
+  },
+  background: {
+    label: "Tausta",
+    title: "Kahdesti rakennettu ura",
+    story: [
+      "Tein noin viisi vuotta töitä rakennuspeltiseppänä. Tarkkaa, fyysistä työtä, jossa virhe maksaa aikaa ja materiaalia. Vuonna 2022 vaihdoin alaa tietoisesti, hakeuduin Turun ammattikorkeakouluun ja valmistuin joulukuussa 2025.",
+      "Tutkinnon ohessa suoritin lisäkursseja muista korkeakouluista, koska aiheet kiinnostivat, esimerkiksi Azure Fundamentals ja PowerShell Metropoliassa. Työskentelen hyvin itsenäisesti, ja kun jumitun, sanon sen ja kysyn sen sijaan että hukkaisin päivän.",
+      "Nyt haen ensimmäistä vakituista roolia data engineeringin tai tekoälyn parissa.",
+    ],
+    timeline: [
+      {
+        period: "2022 – 2025",
+        role: "Tradenomi (AMK), tietojenkäsittely · Data Engineering & AI",
+        org: "Turun ammattikorkeakoulu",
+        detail: "Painotettu keskiarvo 4,3 / 5. Arvosana 5 / 5 opintojaksoista Data Engineering, Cloud Services ja Software Development Operations.",
+      },
+      {
+        period: "2025",
+        role: "Opinnäytetyö: Tekoäly avustajana käyttäjäkokemuksen arvioinnissa",
+        org: "LLM-mallien ja ihmistestaajien vertailu",
+        detail: "Kielimallit löysivät 75 % samoista käytettävyysongelmista kuin ihmistestaajat. Vertailu Jaccard-samankaltaisuudella ja Cohenin kappalla. Arvosana 4 / 5.",
+        link: { href: THESIS_URL, label: "Lue Theseuksessa" },
+      },
+      {
+        period: "05 – 08 / 2024",
+        role: "Web-suunnittelu ja -kehitys, harjoittelu",
+        org: "theFIRMA, Turku",
+        detail: "Figma-mockupit ulkoiselle asiakkaalle, frontend- ja backend-kehitystä sisäisissä projekteissa, WordPress-toteutus Kansalaisen IT-tuki -palveluun.",
+      },
+      {
+        period: "2014 – 2020",
+        role: "Rakennuspeltiseppä",
+        org: "Turun seutu",
+        detail: "Reunalistoituksia ja kattoasennuksia. Asepalvelus 2015–2016 välissä. Lopetin alalla vuoden 2020 alussa.",
+      },
+    ],
+  },
+  skills: {
+    label: "Osaaminen",
+    title: "Työkalut",
+    groups: [
+      { label: "Ohjelmointikielet", items: ["Python", "SQL", "JavaScript / TypeScript", "Java"] },
+      { label: "Data-alustat", items: ["Databricks", "Delta Lake", "Spark SQL", "PostgreSQL", "DuckDB", "MySQL", "MongoDB"] },
+      { label: "Putket ja työkalut", items: ["Apache Airflow", "Docker", "Git", "GitHub Actions", "Playwright", "REST APIs", "FastAPI"] },
+      { label: "Tekoäly ja analyysi", items: ["Claude API", "Gemini API", "LLM-arviointi", "Pandas / NumPy", "scikit-learn", "TensorFlow / Keras"] },
+    ],
+    extra: [
+      { label: "Pilvi", items: ["Azure", "AWS", "Cloudflare"] },
+      { label: "Syväoppimisen kurssityöt", items: ["CNN:t ja EfficientNetin hienosäätö", "YOLOv3 / v8 -objektintunnistus", "LSTM- ja Seq2Seq-mallit"] },
+      { label: "Kielitaito", items: ["Suomi, äidinkieli", "Englanti, B2"] },
+    ],
+  },
+  contact: {
+    label: "Yhteystiedot",
+    title: "Jutellaan",
+    text: "Haen junior-roolia data engineeringin tai tekoälyn parissa, Turusta tai etänä. Sähköpostilla tavoitat nopeimmin.",
+    statusLabel: "Tilanne nyt",
+    status: "Vapaa",
+    statusDetail: ["Data engineering- ja AI-roolit", "Turku · Etätyö", "Voin aloittaa heti"],
+    newTab: "(avautuu uuteen välilehteen)",
+  },
+  footer: { left: "Mikko Valtanen · 2026", right: "Turku" },
+};
+
+export const translations: Record<Lang, Content> = { en, fi };

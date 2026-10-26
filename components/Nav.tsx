@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { translations, type Lang } from "@/lib/i18n";
 
 interface NavProps {
@@ -9,175 +8,136 @@ interface NavProps {
 }
 
 export default function Nav({ lang, onLangChange }: NavProps) {
-  const t = translations[lang];
+  const t = translations[lang].nav;
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const close = () => setMenuOpen(false);
   const links = [
-    { href: "#about", label: t["nav-about"] },
-    { href: "#projects", label: t["nav-projects"] },
-    { href: "#ai", label: t["nav-ai"] },
-    { href: "#skills", label: t["nav-skills"] },
-    { href: "#contact", label: t["nav-contact"] },
+    { href: "#projects", label: t.projects },
+    { href: "#background", label: t.background },
+    { href: "#skills", label: t.skills },
+    { href: "#contact", label: t.contact },
   ];
 
-  return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      style={{
-        position: "fixed",
-        top: 0, left: 0, right: 0,
-        padding: "18px 52px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        zIndex: 100,
-        backdropFilter: "blur(16px) saturate(1.4)",
-        background: scrolled ? "rgba(244,241,236,0.95)" : "rgba(244,241,236,0.88)",
-        borderBottom: `1px solid var(--border-s)`,
-        transition: "background 0.3s",
-      }}
-    >
-      <a
-        href="#"
-        style={{
-          fontFamily: "var(--font-syne), sans-serif",
-          fontWeight: 800,
-          fontSize: 17,
-          letterSpacing: "-0.03em",
-          color: "var(--dark)",
-          textDecoration: "none",
-        }}
-      >
-        MV<span style={{ color: "var(--accent)" }}>.</span>
-      </a>
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
 
-      {/* Desktop */}
-      <div style={{ display: "flex", alignItems: "center", gap: 36 }} className="desktop-nav">
-        <ul style={{ display: "flex", gap: 36, listStyle: "none", margin: 0, padding: 0 }}>
+  const switchLang = () => onLangChange(lang === "en" ? "fi" : "en");
+
+  return (
+    <header className="site-nav">
+      <nav className="container nav-inner" aria-label="Main">
+        <a href="#main" className="nav-logo">
+          Mikko Valtanen
+        </a>
+
+        <ul className="nav-links">
           {links.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
-                className="nav-link"
-                style={{
-                  textDecoration: "none",
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  transition: "color 0.2s",
-                }}
-              >
-                {l.label}
-              </a>
+              <a href={l.href}>{l.label}</a>
             </li>
           ))}
         </ul>
-        <button
-          onClick={() => onLangChange(lang === "en" ? "fi" : "en")}
-          className="lang-btn-desktop"
-          style={{
-            background: "transparent",
-            border: "1px solid var(--border-a)",
-            color: "var(--accent)",
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: 11,
-            letterSpacing: "0.12em",
-            padding: "8px 16px",
-            cursor: "pointer",
-            transition: "background 0.2s, color 0.2s",
-          }}
-        >
-          {t["lang-btn"]}
-        </button>
-      </div>
 
-      {/* Mobile overlay */}
+        <div className="nav-actions">
+          <button type="button" onClick={switchLang} className="lang-btn" aria-label={t.langLabel}>
+            {t.langBtn}
+          </button>
+          <button
+            ref={toggleRef}
+            type="button"
+            className="menu-btn"
+            aria-label={menuOpen ? t.menuClose : t.menuOpen}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span className={menuOpen ? "bar bar-open-1" : "bar"} />
+            <span className={menuOpen ? "bar bar-open-2" : "bar"} />
+          </button>
+        </div>
+      </nav>
+
       {menuOpen && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(244,241,236,0.97)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 40,
-            zIndex: 99,
-          }}
-        >
-          <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 32, textAlign: "center" }}>
+        <div id="mobile-menu" className="mobile-menu">
+          <ul>
             {links.map((l) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  onClick={close}
-                  style={{ color: "var(--dark)", textDecoration: "none", fontSize: 14, letterSpacing: "0.18em", textTransform: "uppercase" }}
-                >
+                <a href={l.href} onClick={() => setMenuOpen(false)}>
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
-          <button
-            onClick={() => { onLangChange(lang === "en" ? "fi" : "en"); close(); }}
-            style={{ background: "transparent", border: "1px solid var(--border-a)", color: "var(--accent)", fontFamily: "var(--font-mono), monospace", fontSize: 13, padding: "8px 20px", cursor: "pointer" }}
-          >
-            {t["lang-btn"]}
-          </button>
         </div>
       )}
 
-      {/* Hamburger */}
-      <button
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen((v) => !v)}
-        style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "none", flexDirection: "column", gap: 5, position: "relative", zIndex: 101 }}
-        className="hamburger-btn"
-      >
-        {[0, 1, 2].map((i) => (
-          <span
-            key={i}
-            style={{
-              display: "block",
-              width: 22,
-              height: 2,
-              background: "var(--dark)",
-              transition: "transform 0.3s, opacity 0.3s",
-              transform: menuOpen
-                ? i === 0 ? "translateY(7px) rotate(45deg)"
-                : i === 2 ? "translateY(-7px) rotate(-45deg)"
-                : "none"
-                : "none",
-              opacity: menuOpen && i === 1 ? 0 : 1,
-            }}
-          />
-        ))}
-      </button>
-
       <style>{`
-        @media (max-width: 900px) {
-          .desktop-nav { display: none !important; }
-          .hamburger-btn { display: flex !important; }
+        .site-nav {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+          background: rgba(244,241,236,0.92);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid var(--rule);
         }
-        @media (min-width: 901px) {
-          nav > *:last-child { display: none !important; }
+        .nav-inner { height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+        .nav-logo {
+          font-family: var(--font-sans), sans-serif; font-weight: 600; font-size: 18px;
+          letter-spacing: -0.02em; color: var(--dark); text-decoration: none;
         }
-        .nav-link { color: var(--muted); }
-        .nav-link:hover, .nav-link:focus-visible { color: var(--accent); }
-        .lang-btn-desktop:hover, .lang-btn-desktop:focus-visible { background: var(--accent) !important; color: var(--bg) !important; }
+        .nav-links { display: flex; gap: 32px; list-style: none; margin: 0 0 0 auto; padding: 0; }
+        .nav-links a, .mobile-menu a {
+          font-family: var(--font-mono), monospace; font-size: 14px; color: var(--muted);
+          text-decoration: none; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--dark); }
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+        .lang-btn {
+          min-width: 44px; height: 40px; padding: 0 12px; cursor: pointer;
+          background: transparent; border: 1px solid var(--rule-strong); color: var(--dark);
+          font-family: var(--font-mono), monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+          transition: background 0.2s, color 0.2s;
+        }
+        .lang-btn:hover { background: var(--dark); color: var(--bg); }
+        .menu-btn {
+          display: none; width: 44px; height: 44px; cursor: pointer;
+          background: none; border: none; position: relative;
+        }
+        .bar {
+          position: absolute; left: 11px; width: 22px; height: 2px; background: var(--dark);
+          transition: transform 0.25s;
+        }
+        .bar:first-child { top: 17px; }
+        .bar:last-child { top: 25px; }
+        .bar-open-1 { transform: translateY(4px) rotate(45deg); }
+        .bar-open-2 { transform: translateY(-4px) rotate(-45deg); }
+        .mobile-menu {
+          position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+          background: var(--bg); border-top: 1px solid var(--rule);
+        }
+        .mobile-menu ul { list-style: none; margin: 0; padding: 16px var(--gutter); }
+        .mobile-menu li { border-bottom: 1px solid var(--rule); }
+        .mobile-menu a { display: flex; align-items: center; min-height: 56px; font-size: 17px; color: var(--dark); }
+        @media (max-width: 760px) {
+          .nav-links { display: none; }
+          .menu-btn { display: block; }
+        }
+        @media (min-width: 761px) {
+          .mobile-menu { display: none; }
+        }
       `}</style>
-    </motion.nav>
+    </header>
   );
 }

@@ -1,281 +1,75 @@
 "use client";
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { translations, type Lang } from "@/lib/i18n";
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 18 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] },
+  transition: { duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] },
 });
 
-type Particle = {
-  x: number; y: number;
-  vx: number; vy: number;
-  ovx: number; ovy: number;
-  r: number;
-};
-
 export default function Hero({ lang }: { lang: Lang }) {
-  const t = translations[lang];
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let particles: Particle[] = [];
-    let rafId: number;
-    let mouseX = -9999;
-    let mouseY = -9999;
-
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    };
-    const onMouseLeave = () => { mouseX = -9999; mouseY = -9999; };
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseleave", onMouseLeave);
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      particles = Array.from(
-        { length: Math.min(Math.floor((canvas.width * canvas.height) / 11000), 85) },
-        () => {
-          const vx = (Math.random() - 0.5) * 0.38;
-          const vy = (Math.random() - 0.5) * 0.38;
-          return {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx, vy, ovx: vx, ovy: vy,
-            r: Math.random() * 1.8 + 0.7,
-          };
-        }
-      );
-    };
-
-    const REPEL_RADIUS = 115;
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        // Mouse repulsion
-        const dxM = p.x - mouseX;
-        const dyM = p.y - mouseY;
-        const distM = Math.sqrt(dxM * dxM + dyM * dyM);
-        if (distM < REPEL_RADIUS && distM > 0.5) {
-          const force = (1 - distM / REPEL_RADIUS) * 0.52;
-          p.vx += (dxM / distM) * force;
-          p.vy += (dyM / distM) * force;
-        }
-
-        // Lerp back toward natural velocity (respects bounce-flipped ovx/ovy)
-        p.vx += (p.ovx - p.vx) * 0.022;
-        p.vy += (p.ovy - p.vy) * 0.022;
-
-        // Hard clamp
-        const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (spd > 4.2) { p.vx = (p.vx / spd) * 4.2; p.vy = (p.vy / spd) * 4.2; }
-
-        // Move & bounce
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  { p.vx *= -1; p.ovx *= -1; }
-        if (p.y < 0 || p.y > canvas.height) { p.vy *= -1; p.ovy *= -1; }
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(80,55,30,0.3)";
-        ctx.fill();
-
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const q = particles[j];
-          const dx = p.x - q.x;
-          const dy = p.y - q.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 130) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = `rgba(201,106,10,${0.18 * (1 - dist / 130)})`;
-            ctx.lineWidth = 0.7;
-            ctx.stroke();
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(animate);
-    };
-
-    resize();
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) animate();
-    window.addEventListener("resize", resize);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseleave", onMouseLeave);
-    };
-  }, []);
+  const t = translations[lang].hero;
+  const statusIndex = t.spec.length - 1;
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        padding: "0 52px 88px",
-        position: "relative",
-        zIndex: 1,
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        style={{
-          position: "absolute", inset: 0,
-          width: "100%", height: "100%",
-          pointerEvents: "none", zIndex: 0,
-        }}
-      />
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="container hero-grid">
+        <div>
+          <motion.p {...fadeUp(0)} className="eyebrow hero-role">
+            {t.role}
+          </motion.p>
+          <motion.h1 {...fadeUp(0.08)} id="hero-title" className="hero-name">
+            Mikko Valtanen
+          </motion.h1>
+          <motion.p {...fadeUp(0.16)} className="hero-lede">
+            {t.lede}
+          </motion.p>
+          <motion.div {...fadeUp(0.24)} className="hero-ctas">
+            <a href="#projects" className="btn btn-primary">
+              {t.ctaPrimary} <span aria-hidden="true">↓</span>
+            </a>
+            <a href="#contact" className="btn btn-ghost">
+              {t.ctaSecondary}
+            </a>
+          </motion.div>
+        </div>
 
-      <motion.div
-        {...fadeUp(0)}
-        style={{
-          position: "absolute",
-          top: 108, right: 52,
-          display: "flex",
-          alignItems: "center",
-          gap: 9,
-          padding: "8px 16px",
-          background: "var(--surface)",
-          border: "1px solid var(--border-a)",
-          fontSize: 11,
-          color: "var(--text)",
-          letterSpacing: "0.04em",
-          zIndex: 1,
-        }}
-      >
-        <span
-          className="badge-dot"
-          style={{ width: 6, height: 6, borderRadius: "50%", background: "#16a34a", flexShrink: 0 }}
-        />
-        {t.badge}
-      </motion.div>
-
-      <div style={{ position: "relative", zIndex: 1 }}>
-        <motion.div
-          {...fadeUp(0.1)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 14,
-            fontSize: 11,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--accent)",
-            marginBottom: 22,
-          }}
-        >
-          <span style={{ display: "block", width: 30, height: 1, background: "var(--accent)" }} />
-          {t["hero-eyebrow"]}
-        </motion.div>
-
-        <motion.h1
-          {...fadeUp(0.25)}
-          style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            fontWeight: 800,
-            fontSize: "clamp(58px, 10.5vw, 124px)",
-            lineHeight: 0.88,
-            letterSpacing: "-0.045em",
-            color: "var(--dark)",
-            marginBottom: 36,
-          }}
-        >
-          Mikko<br />
-          <span
-            style={{
-              background: "linear-gradient(135deg, #c96a0a 0%, #e8921a 60%, #f5aa38 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Valtanen
-          </span>
-        </motion.h1>
-
-        <motion.p
-          {...fadeUp(0.42)}
-          style={{ maxWidth: 500, fontSize: 13, color: "var(--muted)", lineHeight: 1.8, marginBottom: 48 }}
-        >
-          {t["hero-sub-1"]}
-          <strong style={{ color: "var(--text)" }}>{t["hero-sub-bold"]}</strong>
-          {t["hero-sub-2"]}
-          <br />
-          {t["hero-sub-3"]}
-        </motion.p>
-
-        <motion.a
-          {...fadeUp(0.58)}
-          href="#projects"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            padding: "14px 28px",
-            border: "1px solid var(--accent)",
-            color: "var(--accent)",
-            textDecoration: "none",
-            fontFamily: "var(--font-mono), monospace",
-            fontSize: 11,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            transition: "background 0.2s, color 0.2s",
-          }}
-          whileHover={{ background: "#c96a0a", color: "#f4f1ec" }}
-        >
-          {t["hero-cta"]}
-        </motion.a>
+        <motion.dl {...fadeUp(0.3)} className="spec">
+          {t.spec.map((row, i) => (
+            <div key={row.label} className="spec-row">
+              <dt className="meta">{row.label}</dt>
+              <dd>
+                {i === statusIndex && <span className="status-dot" aria-hidden="true" />}
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
       </div>
 
-      <motion.div
-        {...fadeUp(1)}
-        style={{
-          position: "absolute",
-          right: 52, bottom: 88,
-          writingMode: "vertical-lr",
-          fontSize: 10,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "var(--muted)",
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          zIndex: 1,
-        }}
-      >
-        Scroll
-        <span
-          style={{
-            display: "block", width: 1, height: 56,
-            background: "linear-gradient(to bottom, var(--muted), transparent)",
-          }}
-        />
-      </motion.div>
-    </div>
+      <style>{`
+        .hero { padding: calc(var(--nav-h) + 112px) 0 104px; }
+        .hero-grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 72px; align-items: end; }
+        .hero-role { margin-bottom: 18px; }
+        .hero-name {
+          font-family: var(--font-sans), sans-serif; font-weight: 600;
+          font-size: clamp(52px, 8.4vw, 104px); line-height: 0.95; letter-spacing: -0.04em;
+          color: var(--dark); margin-bottom: 28px;
+        }
+        .hero-lede { max-width: 560px; font-size: 19px; line-height: 1.6; color: var(--text); margin-bottom: 36px; }
+        .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+        .spec { background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent); margin: 0; }
+        .spec-row { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 16px 22px; border-bottom: 1px solid var(--rule); }
+        .spec-row:last-child { border-bottom: none; }
+        .spec dt { padding-top: 2px; }
+        .spec dd { margin: 0; font-size: 15.5px; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        @media (max-width: 900px) {
+          .hero { padding: calc(var(--nav-h) + 64px) 0 72px; }
+          .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+          .hero-lede { font-size: 17.5px; }
+        }
+      `}</style>
+    </section>
   );
 }

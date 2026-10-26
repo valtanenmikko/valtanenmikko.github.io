@@ -1,333 +1,214 @@
 "use client";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { translations, type Lang } from "@/lib/i18n";
+import { translations, type Lang, type Project, type Content } from "@/lib/i18n";
 import Reveal from "./Reveal";
 
-const Tag = ({ label }: { label: string }) => (
-  <span
-    style={{
-      padding: "3px 10px",
-      background: "rgba(201,106,10,0.07)",
-      border: "1px solid rgba(201,106,10,0.22)",
-      fontSize: 10,
-      letterSpacing: "0.04em",
-      color: "var(--accent)",
-    }}
-  >
-    {label}
-  </span>
-);
-
-function Card({
-  children,
-  featured = false,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  featured?: boolean;
-  delay?: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
-
-  const cardStyle: React.CSSProperties = {
-    background: "var(--surface)",
-    padding: 40,
-    position: "relative",
-    overflow: "hidden",
-    ...(featured ? { gridColumn: "span 3", borderTop: "3px solid var(--accent)" } : {}),
-  };
-
-  const contentStyle: React.CSSProperties = featured
-    ? { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, position: "relative", zIndex: 1 }
-    : { position: "relative", zIndex: 1 };
-
+function Stack({ items }: { items: string[] }) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 22 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] }}
-      whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.1)" }}
-      style={cardStyle}
-      className={featured ? "card-featured" : ""}
-    >
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0, left: 0, right: 0,
-          height: 2,
-          background: "var(--accent)",
-          transformOrigin: "left",
-          transform: "scaleX(0)",
-          transition: "transform 0.4s ease",
-        }}
-        className="card-underline"
-      />
-      <div style={contentStyle}>{children}</div>
-    </motion.div>
+    <ul className="stack">
+      {items.map((s) => (
+        <li key={s} className="tag">
+          {s}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Points({ items }: { items: string[] }) {
+  if (items.length === 0) return null;
+  return (
+    <ul className="points">
+      {items.map((p) => (
+        <li key={p}>{p}</li>
+      ))}
+    </ul>
+  );
+}
+
+function ProjectCard({ p, newTab, compact = false }: { p: Project; newTab: string; compact?: boolean }) {
+  return (
+    <article className={compact ? "card card-compact" : "card"}>
+      <p className="meta card-kind">{p.kind}</p>
+      <h3 className="h3">{p.title}</h3>
+      <p className="card-summary">{p.summary}</p>
+      <Points items={p.points} />
+      {p.facts && (
+        <dl className="facts">
+          {p.facts.map((f) => (
+            <div key={f.label}>
+              <dt className="meta">{f.label}</dt>
+              <dd>{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      <div className="card-foot">
+        <Stack items={p.stack} />
+        {p.link && (
+          <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="link-arrow">
+            {p.link.label} ↗<span className="sr-only"> {newTab}</span>
+          </a>
+        )}
+      </div>
+    </article>
+  );
+}
+
+function PipelineFigure({ d }: { d: Content["projects"]["pipeline"] }) {
+  const stages = [
+    { key: "src", name: "Sources", desc: d.sources, tone: "src" },
+    { key: "bronze", name: "Bronze", desc: d.bronze, tone: "bronze" },
+    { key: "silver", name: "Silver", desc: d.silver, tone: "silver" },
+    { key: "llm", name: "LLM", desc: d.llm, tone: "llm" },
+    { key: "gold", name: "Gold", desc: d.gold, tone: "gold" },
+    { key: "out", name: "Output", desc: d.out, tone: "out" },
+  ];
+  return (
+    <figure className="pipeline">
+      <figcaption className="meta pipeline-cap">{d.caption}</figcaption>
+      <ol>
+        {stages.map((s) => (
+          <li key={s.key} className={`stage stage-${s.tone}`}>
+            <span className="stage-name">{s.name}</span>
+            <span className="stage-desc">{s.desc}</span>
+          </li>
+        ))}
+      </ol>
+    </figure>
   );
 }
 
 export default function Projects({ lang }: { lang: Lang }) {
-  const t = translations[lang];
+  const c = translations[lang];
+  const t = c.projects;
+  const f = t.featured;
 
   return (
-    <section id="projects" style={{ padding: "128px 52px", maxWidth: 1240, margin: "0 auto" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          fontSize: 10,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: "var(--accent)",
-          marginBottom: 18,
-        }}
-      >
-        <span style={{ color: "var(--muted)" }}>02 /</span> {t["projects-label"]}
-      </div>
-
-      <Reveal>
-        <h2
-          style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            fontWeight: 800,
-            fontSize: "clamp(34px, 5.5vw, 60px)",
-            lineHeight: 1,
-            letterSpacing: "-0.035em",
-            color: "var(--dark)",
-            marginBottom: 56,
-          }}
-        >
-          {t["projects-title-1"]}
-          <br />
-          {t["projects-title-2"]}
-        </h2>
-      </Reveal>
-
-      <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 2 }}
-        className="projects-grid"
-      >
-        {/* Featured — TurkuMove */}
-        <Card featured delay={0}>
+    <section id="projects" className="section" aria-labelledby="projects-title">
+      <div className="container">
+        <div className="section-head">
+          <p className="eyebrow">{t.label}</p>
           <div>
-            <div
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.2em",
-                color: "var(--accent)",
-                marginBottom: 14,
-                textTransform: "uppercase",
-              }}
-            >
-              {t["p7-num"]}
-            </div>
-            <h3
-              style={{
-                fontFamily: "var(--font-syne), sans-serif",
-                fontWeight: 700,
-                fontSize: 19,
-                color: "var(--dark)",
-                marginBottom: 12,
-                lineHeight: 1.15,
-              }}
-            >
-              {t["p7-title"]}
-            </h3>
-            <p style={{ fontSize: 12.5, color: "var(--text)", lineHeight: 1.75, marginBottom: 20 }}>
-              {t["p7-desc"]}
-            </p>
-            <a
-              href="https://turkumove.fi"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontSize: 11,
-                color: "var(--teal)",
-                fontStyle: "italic",
-                marginBottom: 24,
-                display: "block",
-                textDecoration: "none",
-              }}
-            >
-              {t["p7-note"]}
-            </a>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-              {["JavaScript", "Leaflet.js", "Node.js", "SEO", "Cloudflare"].map(
-                (tag) => <Tag key={tag} label={tag} />
-              )}
-            </div>
+            <h2 id="projects-title" className="h2">{t.title}</h2>
+            <p className="section-intro">{t.intro}</p>
           </div>
-          <div>
-            <div
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: 10,
-              }}
-            >
-              {t["p7-meta-features"]}
-            </div>
-            <ul style={{ listStyle: "none", padding: 0, marginBottom: 32 }}>
-              {[
-                t["p7-feat1"],
-                t["p7-feat2"],
-                t["p7-feat3"],
-                t["p7-feat4"],
-                t["p7-feat5"],
-              ].map((s, i) => (
-                <li
-                  key={i}
-                  style={{
-                    padding: "7px 0",
-                    borderBottom: i < 4 ? "1px solid var(--border-s)" : "none",
-                    display: "flex",
-                    gap: 12,
-                    fontSize: 12,
-                    color: "var(--text)",
-                  }}
-                >
-                  <span style={{ color: "var(--accent)", flexShrink: 0 }}>0{i + 1}</span>
-                  {s}
-                </li>
-              ))}
-            </ul>
-            <div
-              style={{
-                fontSize: 10,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: 10,
-              }}
-            >
-              {t["p7-tech-title"]}
-            </div>
-            <p style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.7 }}>{t["p7-tech-desc"]}</p>
-          </div>
-        </Card>
+        </div>
 
-        {[
-          {
-            num: t["p1-num"],
-            title: t["p1-title"],
-            desc: t["p1-desc"],
-            note: t["p1-note"],
-            tags: ["Python", "Playwright", "DuckDB", "Claude API", "REST APIs", "Google Drive API"],
-          },
-          {
-            num: t["p2-num"],
-            title: t["p2-title"],
-            desc: t["p2-desc"],
-            tags: ["Python", "PostgreSQL", "Apache Airflow", "Docker", "SQL"],
-          },
-          {
-            num: t["p3-num"],
-            title: t["p3-title"],
-            desc: t["p3-desc"],
-            tags: ["Python", "FastAPI", "Machine Learning", "Data Visualization", "Geospatial"],
-          },
-          {
-            num: t["p4-num"],
-            title: t["p4-title"],
-            desc: t["p4-desc"],
-            tags: ["Python", "scikit-learn", "Pandas", "Logistic Regression", "Linear Regression"],
-          },
-          {
-            num: t["p5-num"],
-            title: t["p5-title"],
-            desc: t["p5-desc"],
-            tags: ["Python", "NLP", "Machine Learning", "Data Analysis"],
-          },
-          {
-            num: t["p6-num"],
-            title: t["p6-title"],
-            desc: t["p6-desc"],
-            note: t["p6-note"],
-            tags: ["Research", "LLM Evaluation", "UX Analysis", "AI"],
-          },
-        ].map((p: { num: string; title: string; desc: string; note?: string; noteHref?: string; tags: string[] }, i) => (
-          <Card key={i} delay={i * 0.05}>
+        <Reveal>
+          <article className="featured">
             <div>
-              <div
-                style={{
-                  fontSize: 10,
-                  letterSpacing: "0.2em",
-                  color: "var(--accent)",
-                  marginBottom: 14,
-                  textTransform: "uppercase",
-                }}
-              >
-                {p.num}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-syne), sans-serif",
-                  fontWeight: 700,
-                  fontSize: 19,
-                  color: "var(--dark)",
-                  marginBottom: 12,
-                  lineHeight: 1.15,
-                }}
-              >
-                {p.title}
-              </h3>
-              <p style={{ fontSize: 12.5, color: "var(--text)", lineHeight: 1.75, marginBottom: 20 }}>
-                {p.desc}
+              <p className="meta card-kind">
+                {f.kind}
+                {f.status && <span className="status-pill">{f.status}</span>}
               </p>
-              {p.note &&
-                (p.noteHref ? (
-                  <a
-                    href={p.noteHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      fontSize: 11,
-                      color: "var(--teal)",
-                      fontStyle: "italic",
-                      marginBottom: 24,
-                      display: "block",
-                      textDecoration: "none",
-                    }}
-                  >
-                    {p.note}
-                  </a>
-                ) : (
-                  <p style={{ fontSize: 11, color: "var(--teal)", fontStyle: "italic", marginBottom: 24 }}>
-                    {p.note}
-                  </p>
-                ))}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {p.tags.map((tag) => (
-                  <Tag key={tag} label={tag} />
-                ))}
-              </div>
+              <h3 className="h3 featured-title">{f.title}</h3>
+              <p className="card-summary">{f.summary}</p>
+              <Points items={f.points} />
+              <Stack items={f.stack} />
             </div>
-          </Card>
-        ))}
+            <PipelineFigure d={t.pipeline} />
+          </article>
+        </Reveal>
+
+        <div className="cards">
+          {t.items.map((p, i) => (
+            <Reveal key={p.id} delay={i * 0.06} style={{ display: "flex" }}>
+              <ProjectCard p={p} newTab={c.contact.newTab} />
+            </Reveal>
+          ))}
+        </div>
+
+        <p className="eyebrow coursework-label">{t.courseworkLabel}</p>
+        <div className="cards cards-2">
+          {t.coursework.map((p) => (
+            <Reveal key={p.id} style={{ display: "flex" }}>
+              <ProjectCard p={p} newTab={c.contact.newTab} compact />
+            </Reveal>
+          ))}
+        </div>
       </div>
 
       <style>{`
-        .projects-grid { grid-template-columns: 1fr 1fr 1fr; }
-        .card-featured { grid-column: span 3; }
-        .card-featured > div { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-        @media (max-width: 1100px) {
-          .projects-grid { grid-template-columns: 1fr 1fr !important; }
-          .card-featured { grid-column: span 2 !important; }
-          .card-featured > div { grid-template-columns: 1fr !important; gap: 32px !important; }
+        .section-intro { margin-top: 14px; color: var(--muted); font-size: 17px; }
+
+        .featured {
+          display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px;
+          background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent);
+          padding: 44px; margin-bottom: 24px;
+        }
+        .featured-title { font-size: clamp(24px, 2.6vw, 30px); }
+        .card-kind { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+        .status-pill {
+          padding: 2px 10px; border: 1px solid var(--border-a); background: rgba(201,106,10,0.08);
+          color: var(--accent-text); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+        }
+        .card-summary { margin: 14px 0 18px; color: var(--text); }
+        .points { list-style: none; padding: 0; margin: 0 0 24px; }
+        .points li { position: relative; padding: 8px 0 8px 22px; border-top: 1px solid var(--rule); font-size: 15.5px; line-height: 1.6; }
+        .points li::before { content: ""; position: absolute; left: 2px; top: 19px; width: 8px; height: 2px; background: var(--accent); }
+        .stack { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .pipeline { margin: 0; align-self: center; }
+        .pipeline-cap { margin-bottom: 14px; }
+        .pipeline ol { list-style: none; padding: 0; margin: 0; }
+        .stage {
+          position: relative; display: grid; grid-template-columns: 82px 1fr; gap: 14px; align-items: center;
+          padding: 12px 16px; border: 1px solid var(--rule); background: var(--bg); margin-bottom: 18px;
+        }
+        .stage:last-child { margin-bottom: 0; }
+        .stage:not(:last-child)::after {
+          content: ""; position: absolute; left: 56px; bottom: -19px; width: 1px; height: 18px; background: var(--rule-strong);
+        }
+        .stage-name { font-family: var(--font-mono), monospace; font-size: 12.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+        .stage-desc { font-size: 14.5px; line-height: 1.45; color: var(--text); }
+        .stage-src { border-style: dashed; background: transparent; }
+        .stage-src .stage-name { color: var(--muted); }
+        .stage-bronze { border-left: 4px solid #a0612b; }
+        .stage-bronze .stage-name { color: #7d4a1f; }
+        .stage-silver { border-left: 4px solid #8c8f93; }
+        .stage-silver .stage-name { color: #5b5e62; }
+        .stage-llm { margin-left: 28px; border-style: dashed; border-color: var(--teal); }
+        .stage-llm .stage-name { color: var(--teal-text); }
+        .stage-gold { border-left: 4px solid #c99a1c; }
+        .stage-gold .stage-name { color: #806010; }
+        .stage-out { background: var(--dark); border-color: var(--dark); }
+        .stage-out .stage-name, .stage-out .stage-desc { color: var(--bg); }
+
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .cards-2 { grid-template-columns: repeat(2, 1fr); }
+        .cards > *, .featured > * { min-width: 0; }
+        .card {
+          display: flex; flex-direction: column; width: 100%;
+          background: var(--surface); border: 1px solid var(--rule); padding: 32px;
+        }
+        .card .points { flex: 1; }
+        .card-compact { background: transparent; }
+        .card-compact .card-summary { flex: 1; font-size: 15.5px; }
+        .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0 0 24px; padding: 16px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+        .facts dd { margin: 0; order: -1; font-family: var(--font-mono), monospace; font-weight: 500; font-size: 26px; line-height: 1.15; color: var(--dark); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+        .facts div { display: flex; flex-direction: column; min-width: 0; }
+        .facts dt { font-family: var(--font-sans), sans-serif; font-size: 13px; line-height: 1.35; letter-spacing: 0; margin-top: 4px; overflow-wrap: break-word; hyphens: auto; }
+        .card-foot { display: flex; flex-direction: column; gap: 18px; }
+        .coursework-label { margin: 64px 0 20px; }
+
+        @media (max-width: 1000px) {
+          .featured { grid-template-columns: 1fr; gap: 40px; padding: 32px; }
+          .cards { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 700px) {
+          .cards-2 { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
-          .projects-grid { grid-template-columns: 1fr !important; }
-          .card-featured { grid-column: span 1 !important; }
+          .featured, .card { padding: 24px 20px; }
+          .stage { grid-template-columns: 1fr; gap: 4px; }
+          .stage:not(:last-child)::after { left: 24px; }
+          .stage-llm { margin-left: 16px; }
         }
-        .card-underline { position: absolute; bottom: 0; left: 0; right: 0; }
-        motion-div:hover .card-underline { transform: scaleX(1) !important; }
+        @media (max-width: 480px) {
+          .facts { grid-template-columns: 1fr; gap: 8px; }
+          .facts div { flex-direction: row; align-items: baseline; gap: 12px; }
+          .facts dd { font-size: 24px; min-width: 56px; }
+        }
       `}</style>
     </section>
   );

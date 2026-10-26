@@ -1,195 +1,72 @@
 "use client";
 import Image from "next/image";
-import { useRef, useEffect } from "react";
-import { useInView } from "framer-motion";
 import Reveal from "./Reveal";
 import { translations, type Lang } from "@/lib/i18n";
 
-function AnimCount({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const wrapRef = useRef<HTMLSpanElement>(null);
-  const numRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(wrapRef, { once: true });
-
-  useEffect(() => {
-    if (!inView || !numRef.current) return;
-    let curr = 0;
-    const steps = 50;
-    const inc = value / steps;
-    const timer = setInterval(() => {
-      curr = Math.min(curr + inc, value);
-      if (numRef.current) numRef.current.textContent = Math.round(curr).toString();
-      if (curr >= value) clearInterval(timer);
-    }, 1400 / steps);
-    return () => clearInterval(timer);
-  }, [inView, value]);
-
-  return (
-    <span ref={wrapRef}>
-      <span ref={numRef}>0</span>
-      {suffix}
-    </span>
-  );
-}
-
 export default function About({ lang }: { lang: Lang }) {
-  const t = translations[lang];
-
-  const tlItems = [
-    {
-      color: "#c96a0a",
-      role: t["tl1-role"],
-      org: t["tl1-org"],
-      detail: t["tl1-detail"],
-      stat: { num: 75, suffix: "%", unit: t["tl1-unit"] },
-    },
-    { color: "#0d9e85", role: t["tl2-role"], org: t["tl2-org"], detail: t["tl2-detail"] },
-    { color: "#7a7068", role: t["tl3-role"], org: t["tl3-org"], detail: t["tl3-detail"] },
-  ];
+  const c = translations[lang];
+  const t = c.background;
 
   return (
-    <section id="about" style={{ padding: "128px 52px", maxWidth: 1240, margin: "0 auto" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          fontSize: 10,
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: "var(--accent)",
-          marginBottom: 18,
-        }}
-      >
-        <span style={{ color: "var(--muted)" }}>01 /</span> {t["about-label"]}
-      </div>
+    <section id="background" className="section" aria-labelledby="background-title">
+      <div className="container">
+        <div className="section-head">
+          <p className="eyebrow">{t.label}</p>
+          <h2 id="background-title" className="h2">{t.title}</h2>
+        </div>
 
-      <Reveal>
-        <h2
-          style={{
-            fontFamily: "var(--font-syne), sans-serif",
-            fontWeight: 800,
-            fontSize: "clamp(34px, 5.5vw, 60px)",
-            lineHeight: 1,
-            letterSpacing: "-0.035em",
-            color: "var(--dark)",
-            marginBottom: 56,
-          }}
-        >
-          {t["about-title-1"]}
-          <br />
-          {t["about-title-2"]}
-        </h2>
-      </Reveal>
-
-      <div
-        style={{ display: "grid", gridTemplateColumns: "55fr 45fr", gap: 88, alignItems: "start" }}
-        className="about-grid"
-      >
-        <Reveal delay={0.08}>
-          <Image
-            src="/assets/face.jpg"
-            alt="Mikko Valtanen"
-            width={280}
-            height={373}
-            style={{
-              width: "100%",
-              maxWidth: 280,
-              borderRadius: 4,
-              objectFit: "cover",
-              objectPosition: "center 18%",
-              border: "1px solid var(--border-a)",
-              marginBottom: 28,
-              display: "block",
-            }}
-          />
-          {[
-            { text: t["about-p1"] },
-            { text: t["about-p2"] },
-            { text: t["about-p3"] },
-          ].map((p, i) => (
-            <p key={i} style={{ color: "var(--text)", marginBottom: 20, lineHeight: 1.9, fontSize: 13 }}>
-              {p.text}
-            </p>
-          ))}
-        </Reveal>
-
-        <Reveal delay={0.16}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            {tlItems.map((item, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "relative",
-                  padding: "22px 24px 22px 27px",
-                  background: "var(--surface)",
-                  border: "1px solid var(--border-s)",
-                  overflow: "hidden",
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 0, top: 0, bottom: 0,
-                    width: 3,
-                    background: item.color,
-                  }}
-                />
-                <div
-                  style={{
-                    fontFamily: "var(--font-syne), sans-serif",
-                    fontWeight: 700,
-                    fontSize: 13,
-                    color: "var(--dark)",
-                    marginBottom: 3,
-                  }}
-                >
-                  {item.role}
-                </div>
-                <div style={{ fontSize: 11, color: "var(--muted)", marginBottom: 9 }}>{item.org}</div>
-                <div style={{ fontSize: 12, color: "var(--text)", fontStyle: "italic", lineHeight: 1.6 }}>
-                  {item.detail}
-                </div>
-                {item.stat && (
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "baseline",
-                      gap: 6,
-                      marginTop: 10,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-syne), sans-serif",
-                        fontWeight: 800,
-                        fontSize: 32,
-                        color: "var(--accent)",
-                        lineHeight: 1,
-                      }}
-                    >
-                      <AnimCount value={item.stat.num} suffix={item.stat.suffix} />
-                    </span>
-                    <span
-                      style={{
-                        fontSize: 11,
-                        color: "var(--muted)",
-                        maxWidth: 160,
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {item.stat.unit}
-                    </span>
-                  </div>
-                )}
-              </div>
+        <div className="bg-grid">
+          <Reveal>
+            <Image src="/assets/face.jpg" alt="Mikko Valtanen" width={240} height={300} className="portrait" />
+            {t.story.map((p) => (
+              <p key={p} className="story">
+                {p}
+              </p>
             ))}
-          </div>
-        </Reveal>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <ol className="timeline">
+              {t.timeline.map((item) => (
+                <li key={item.role}>
+                  <p className="meta tl-period">{item.period}</p>
+                  <div>
+                    <h3 className="tl-role">{item.role}</h3>
+                    <p className="tl-org">{item.org}</p>
+                    <p className="tl-detail">{item.detail}</p>
+                    {item.link && (
+                      <a href={item.link.href} target="_blank" rel="noopener noreferrer" className="link-arrow">
+                        {item.link.label} ↗<span className="sr-only"> {c.contact.newTab}</span>
+                      </a>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
       </div>
 
       <style>{`
+        .bg-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 72px; align-items: start; }
+        .portrait {
+          width: 100%; max-width: 240px; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 18%;
+          border: 1px solid var(--rule); margin-bottom: 28px; display: block;
+        }
+        .story { margin-bottom: 18px; max-width: 520px; }
+        .timeline { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule-strong); }
+        .timeline li { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--rule); }
+        .tl-period { padding-top: 3px; }
+        .tl-role { font-family: var(--font-sans), sans-serif; font-weight: 600; font-size: 19px; line-height: 1.3; color: var(--dark); }
+        .tl-org { color: var(--muted); font-size: 15px; margin: 4px 0 10px; }
+        .tl-detail { font-size: 15.5px; margin-bottom: 10px; }
+        .tl-detail:last-child { margin-bottom: 0; }
         @media (max-width: 900px) {
-          .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .bg-grid { grid-template-columns: 1fr; gap: 48px; }
+        }
+        @media (max-width: 600px) {
+          .timeline li { grid-template-columns: 1fr; gap: 6px; }
+          .portrait { max-width: 180px; }
         }
       `}</style>
     </section>

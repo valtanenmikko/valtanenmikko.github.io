@@ -1,46 +1,38 @@
 import type { Metadata } from "next";
-import { Syne, IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ["400", "700", "800"],
-  variable: "--font-syne",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-sans",
   display: "swap",
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
 
+const title = "Mikko Valtanen · Junior Data Engineer";
+const description =
+  "Junior data engineer in Turku, Finland. Data pipelines with Python, SQL, Databricks and Airflow. BBA in Data Engineering & AI, Turku UAS 2025. Looking for data engineering and AI roles in Turku or remote.";
+
 export const metadata: Metadata = {
-  title: "Mikko Valtanen — Data Engineer",
-  description:
-    "Mikko Valtanen — Data Engineer & AI Practitioner based in Turku, Finland. Building data pipelines, ML systems, and intelligent tools. Open to junior DE and analyst roles.",
+  title,
+  description,
   authors: [{ name: "Mikko Valtanen" }],
-  openGraph: {
-    title: "Mikko Valtanen — Data Engineer",
-    description:
-      "From sheet metal to data pipelines — a deliberate career change, built from scratch.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: "Mikko Valtanen — Data Engineer",
-    description: "From sheet metal to data pipelines — a deliberate career change, built from scratch.",
-  },
+  openGraph: { title, description, type: "website" },
+  twitter: { card: "summary", title, description },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${syne.variable} ${ibmPlexMono.variable}`}>
-      <body style={{ fontFamily: "var(--font-syne), sans-serif" }}>
-        {children}
-      </body>
+    <html lang="en" className={`${ibmPlexSans.variable} ${ibmPlexMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
