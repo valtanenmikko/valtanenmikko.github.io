@@ -91,7 +91,7 @@ const en: Content = {
   },
   hero: {
     role: "Junior Data Engineer",
-    lede: "I build data pipelines end to end, from raw API data to tables that answer a real business question. Python, SQL, Databricks and Airflow.",
+    lede: "I build data pipelines with Python and SQL, from API ingestion to analysis-ready tables. Tools include Databricks, Airflow and PostgreSQL.",
     spec: [
       { label: "Degree", value: "BBA, Data Engineering & AI · Turku UAS, 2025" },
       { label: "Based in", value: "Turku, Finland" },
@@ -104,7 +104,7 @@ const en: Content = {
   },
   projects: {
     label: "Projects",
-    title: "Selected work",
+    title: "What I've built",
     intro: "Personal projects first, coursework at the end.",
     featured: {
       id: "infra",
@@ -112,11 +112,11 @@ const en: Content = {
       status: "In progress",
       title: "Tender intelligence for infrastructure contractors",
       summary:
-        "A bid team keeps asking three things: which open tenders are worth the effort, who are we up against, and where is competition thin. This pipeline answers them from public EU procurement data and the Finnish company register.",
+        "A bid team needs to know which open tenders are worth bidding on, who the competitors are and where competition is thin. This pipeline answers that from public EU procurement data and the Finnish company register.",
       points: [
-        "ELT pipeline on Databricks following the medallion architecture. Raw data lands unchanged in Bronze, Silver cleans and conforms it, Gold holds business-ready SQL tables.",
-        "Companies are resolved by business ID through the PRH register, not by matching names. Data quality issues found on the way are handled in code and documented.",
-        "An LLM extracts what exists only in free text, such as location and contract period. Its output is scored against structured fields that are withheld from the prompt.",
+        "ELT pipeline on Databricks using the medallion architecture. Bronze keeps raw data unchanged, Silver cleans it, Gold holds the SQL tables for analysis.",
+        "Companies are matched by business ID through the PRH register, not by name. Data quality problems I found are fixed in code and documented.",
+        "An LLM extracts location and contract period from free text. Its output is checked against structured fields the model never sees.",
       ],
       stack: ["Python", "Databricks", "Delta Lake", "Spark SQL", "Unity Catalog", "Gemini API", "REST APIs"],
     },
@@ -134,7 +134,7 @@ const en: Content = {
         id: "turkumove",
         kind: "Personal project · Live",
         title: "TurkuMove",
-        summary: "An interactive map of sports and exercise venues in Turku with real users. I built it alone and still run and maintain it.",
+        summary: "Interactive map of sports venues in Turku. I built it alone and still maintain it.",
         points: [
           "Venue data kept as JSON with a geocoding step. A Node.js script generates static Finnish and English pages for every sport and venue, plus the sitemap.",
           "Filter by sport, search by name, opening hours, contact details and directions.",
@@ -152,7 +152,7 @@ const en: Content = {
         id: "jobs",
         kind: "Personal project",
         title: "Job market intelligence pipeline",
-        summary: "Collects Finnish IT job listings and turns them into a filtered weekly shortlist, so nobody has to browse job boards by hand.",
+        summary: "Collects Finnish IT job listings and produces a filtered weekly shortlist.",
         points: [
           "Scrapes Duunitori and TE-palvelut with Playwright.",
           "The Claude API turns each listing into structured fields: skills, seniority and remote status.",
@@ -164,11 +164,11 @@ const en: Content = {
         id: "edu-ai",
         kind: "Prototype · Startup collaboration",
         title: "AI learning assistant prototype",
-        summary: "An MVP demo I built for an early-stage startup: a conversational learning assistant that works with both text and voice.",
+        summary: "MVP demo for an early-stage startup. A conversational learning assistant with text and voice.",
         points: [
           "FastAPI backend on the Claude API, with speech input and output in the browser.",
-          "System prompt with guardrails for safe, age-appropriate conversation.",
-          "Lightweight topic tracking that the model tags on every reply.",
+          "System prompt with safety rules.",
+          "Topic tracking, with the model tagging the topic on every reply.",
         ],
         stack: ["Python", "FastAPI", "Claude API", "JavaScript", "Speech API"],
       },
@@ -195,10 +195,10 @@ const en: Content = {
   },
   background: {
     label: "Background",
-    title: "A career built twice",
+    title: "From sheet metal to data",
     story: [
-      "I worked as a construction sheet metal worker for about five years. Precise, physical work where a mistake costs time and material. In 2022 I changed careers on purpose, enrolled at Turku University of Applied Sciences and graduated in December 2025.",
-      "Alongside the degree I took extra courses from other universities because the subjects interested me, such as Azure Fundamentals and PowerShell at Metropolia. I work well on my own, and when I'm stuck I say so and ask instead of losing a day.",
+      "I worked as a construction sheet metal worker for about five years. The work was precise and physical, and mistakes cost time and material. In 2022 I switched careers, enrolled at Turku University of Applied Sciences and graduated in December 2025.",
+      "Alongside the degree I took extra courses at other universities out of interest, including Azure Fundamentals and PowerShell at Metropolia. I work independently. When I'm stuck I say so and ask for help instead of losing a day.",
       "Now I'm looking for my first permanent role in data engineering or AI.",
     ],
     timeline: [
@@ -231,7 +231,7 @@ const en: Content = {
   },
   skills: {
     label: "Skills",
-    title: "Toolkit",
+    title: "What I work with",
     groups: [
       { label: "Languages", items: ["Python", "SQL", "JavaScript / TypeScript", "Java"] },
       { label: "Data platforms", items: ["Databricks", "Delta Lake", "Spark SQL", "PostgreSQL", "DuckDB", "MySQL", "MongoDB"] },
@@ -246,8 +246,8 @@ const en: Content = {
   },
   contact: {
     label: "Contact",
-    title: "Let's talk",
-    text: "I'm looking for a junior role in data engineering or AI, in Turku or remote. Email is the fastest way to reach me.",
+    title: "Open to work",
+    text: "I'm looking for a junior role in data engineering or AI, in Turku or remote. Email reaches me fastest.",
     statusLabel: "Current status",
     status: "Available",
     statusDetail: ["Data engineering & AI roles", "Turku · Remote", "Can start immediately"],
@@ -270,7 +270,7 @@ const fi: Content = {
   },
   hero: {
     role: "Junior Data Engineer",
-    lede: "Rakennan dataputkia alusta loppuun, rajapinnan raakadatasta tauluihin, jotka vastaavat oikeaan liiketoiminnan kysymykseen. Python, SQL, Databricks ja Airflow.",
+    lede: "Rakennan dataputkia Pythonilla ja SQL:llä, rajapintahausta analyysivalmiisiin tauluihin. Työkaluihin kuuluvat Databricks, Airflow ja PostgreSQL.",
     spec: [
       { label: "Tutkinto", value: "Tradenomi (AMK), Data Engineering & AI · Turun AMK, 2025" },
       { label: "Sijainti", value: "Turku" },
@@ -283,7 +283,7 @@ const fi: Content = {
   },
   projects: {
     label: "Projektit",
-    title: "Valittuja töitä",
+    title: "Mitä olen rakentanut",
     intro: "Omat projektit ensin, kurssityöt lopussa.",
     featured: {
       id: "infra",
@@ -291,11 +291,11 @@ const fi: Content = {
       status: "Työn alla",
       title: "Tarjouskilpailuanalytiikka infraurakoitsijoille",
       summary:
-        "Tarjoustiimi kysyy jatkuvasti kolmea asiaa: mitkä avoimet kilpailut kannattaa tehdä, keitä vastaan kilpaillaan ja missä kilpailu on vähäistä. Tämä putki vastaa niihin EU:n julkisten hankintojen datasta ja PRH:n yritysrekisteristä.",
+        "Tarjoustiimin pitää tietää, mihin avoimiin kilpailuihin kannattaa tarjota, ketkä kilpailevat vastaan ja missä kilpailu on vähäistä. Putki vastaa näihin EU:n julkisten hankintojen datasta ja PRH:n yritysrekisteristä.",
       points: [
-        "ELT-putki Databricksissa medallion-arkkitehtuurilla. Raakadata tallennetaan muuttamattomana Bronzeen, Silver puhdistaa ja yhtenäistää sen, Goldissa on liiketoimintavalmiit SQL-taulut.",
-        "Yritykset tunnistetaan Y-tunnuksella PRH:n rekisterin kautta, ei nimiä vertaamalla. Matkan varrella löytyneet datan laatuongelmat on käsitelty koodissa ja dokumentoitu.",
-        "Kielimalli poimii tiedot, jotka löytyvät vain vapaasta tekstistä, kuten sijainnin ja sopimuskauden. Tulokset arvioidaan rakenteisia kenttiä vasten, joita mallille ei näytetä.",
+        "ELT-putki Databricksissa medallion-arkkitehtuurilla. Bronze säilyttää raakadatan muuttumattomana, Silver puhdistaa sen ja Goldissa ovat analyysin SQL-taulut.",
+        "Yritykset yhdistetään Y-tunnuksella PRH:n rekisterin kautta, ei nimen perusteella. Löytämäni datan laatuongelmat on korjattu koodissa ja dokumentoitu.",
+        "Kielimalli poimii vapaasta tekstistä sijainnin ja sopimuskauden. Tuloksia verrataan rakenteisiin kenttiin, joita malli ei näe.",
       ],
       stack: ["Python", "Databricks", "Delta Lake", "Spark SQL", "Unity Catalog", "Gemini API", "REST APIs"],
     },
@@ -313,7 +313,7 @@ const fi: Content = {
         id: "turkumove",
         kind: "Oma projekti · Julkaistu",
         title: "TurkuMove",
-        summary: "Interaktiivinen kartta Turun liikuntapaikoista, oikeilla käyttäjillä. Rakensin sen yksin ja ylläpidän sitä edelleen.",
+        summary: "Interaktiivinen kartta Turun liikuntapaikoista. Rakensin sen yksin ja ylläpidän sitä edelleen.",
         points: [
           "Paikkadata JSON-muodossa geokoodausvaiheen kanssa. Node.js-skripti generoi staattiset suomen- ja englanninkieliset sivut jokaiselle lajille ja paikalle sekä sivukartan.",
           "Suodatus lajin mukaan, haku nimellä, aukioloajat, yhteystiedot ja reittiohjeet.",
@@ -331,7 +331,7 @@ const fi: Content = {
         id: "jobs",
         kind: "Oma projekti",
         title: "Työmarkkinadatan putki",
-        summary: "Kerää suomalaiset IT-alan työpaikkailmoitukset ja tekee niistä suodatetun viikkolistan, jottei työpaikkasivustoja tarvitse selata käsin.",
+        summary: "Kerää suomalaiset IT-alan työpaikkailmoitukset ja tekee niistä suodatetun viikkolistan.",
         points: [
           "Kerää ilmoitukset Duunitorista ja TE-palveluista Playwrightilla.",
           "Claude API muuttaa jokaisen ilmoituksen rakenteiseksi dataksi: osaamisvaatimukset, senioriteetti ja etätyömahdollisuus.",
@@ -343,11 +343,11 @@ const fi: Content = {
         id: "edu-ai",
         kind: "Prototyyppi · Startup-yhteistyö",
         title: "Tekoälyavusteisen oppimissovelluksen prototyyppi",
-        summary: "MVP-demo, jonka rakensin varhaisen vaiheen startupille: keskusteleva oppimisavustaja, joka toimii tekstillä ja puheella.",
+        summary: "MVP-demo varhaisen vaiheen startupille. Keskusteleva oppimisavustaja tekstillä ja puheella.",
         points: [
           "FastAPI-taustajärjestelmä Claude API:n päällä, puhe sisään ja ulos selaimessa.",
-          "Järjestelmäkehote, jonka rajaukset pitävät keskustelun turvallisena ja ikätasolle sopivana.",
-          "Kevyt aiheseuranta, jossa malli merkitsee aiheen jokaiseen vastaukseen.",
+          "Järjestelmäkehote ja turvallisuussäännöt.",
+          "Aiheseuranta, jossa malli merkitsee aiheen jokaiseen vastaukseen.",
         ],
         stack: ["Python", "FastAPI", "Claude API", "JavaScript", "Speech API"],
       },
@@ -374,10 +374,10 @@ const fi: Content = {
   },
   background: {
     label: "Tausta",
-    title: "Kahdesti rakennettu ura",
+    title: "Peltisepästä dataan",
     story: [
-      "Tein noin viisi vuotta töitä rakennuspeltiseppänä. Tarkkaa, fyysistä työtä, jossa virhe maksaa aikaa ja materiaalia. Vuonna 2022 vaihdoin alaa tietoisesti, hakeuduin Turun ammattikorkeakouluun ja valmistuin joulukuussa 2025.",
-      "Tutkinnon ohessa suoritin lisäkursseja muista korkeakouluista, koska aiheet kiinnostivat, esimerkiksi Azure Fundamentals ja PowerShell Metropoliassa. Työskentelen hyvin itsenäisesti, ja kun jumitun, sanon sen ja kysyn sen sijaan että hukkaisin päivän.",
+      "Tein noin viisi vuotta töitä rakennuspeltiseppänä. Työ oli tarkkaa ja fyysistä, ja virheet maksoivat aikaa ja materiaalia. Vuonna 2022 vaihdoin alaa, hakeuduin Turun ammattikorkeakouluun ja valmistuin joulukuussa 2025.",
+      "Tutkinnon ohessa kävin lisäkursseja muissa korkeakouluissa kiinnostuksesta, esimerkiksi Azure Fundamentalsin ja PowerShellin Metropoliassa. Työskentelen itsenäisesti. Kun jumitun, sanon sen ja kysyn apua sen sijaan että hukkaisin päivän.",
       "Nyt haen ensimmäistä vakituista roolia data engineeringin tai tekoälyn parissa.",
     ],
     timeline: [
@@ -425,8 +425,8 @@ const fi: Content = {
   },
   contact: {
     label: "Yhteystiedot",
-    title: "Jutellaan",
-    text: "Haen junior-roolia data engineeringin tai tekoälyn parissa, Turusta tai etänä. Sähköpostilla tavoitat nopeimmin.",
+    title: "Avoin työtarjouksille",
+    text: "Haen junior-roolia data engineeringin tai tekoälyn parissa, Turusta tai etänä. Sähköposti tavoittaa minut nopeimmin.",
     statusLabel: "Tilanne nyt",
     status: "Vapaa",
     statusDetail: ["Data engineering- ja AI-roolit", "Turku · Etätyö", "Voin aloittaa heti"],
