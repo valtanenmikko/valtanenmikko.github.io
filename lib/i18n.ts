@@ -197,8 +197,8 @@ const en: Content = {
     label: "Background",
     title: "From sheet metal to data",
     story: [
-      "I worked as a construction sheet metal worker for about five years. The work was precise and physical, and mistakes cost time and material. In 2022 I switched careers, enrolled at Turku University of Applied Sciences and graduated in December 2025.",
-      "Alongside the degree I took extra courses at other universities out of interest, including Azure Fundamentals and PowerShell at Metropolia. I work independently. When I'm stuck I say so and ask for help instead of losing a day.",
+      "I worked as a construction sheet metal worker for about five years. In 2022 I switched careers, enrolled at Turku University of Applied Sciences and graduated in December 2025.",
+      "Alongside the degree I took extra courses at other universities out of interest, including Azure Fundamentals and PowerShell at Metropolia.",
       "Now I'm looking for my first permanent role in data engineering or AI.",
     ],
     timeline: [
@@ -376,8 +376,8 @@ const fi: Content = {
     label: "Tausta",
     title: "Peltisepästä dataan",
     story: [
-      "Tein noin viisi vuotta töitä rakennuspeltiseppänä. Työ oli tarkkaa ja fyysistä, ja virheet maksoivat aikaa ja materiaalia. Vuonna 2022 vaihdoin alaa, hakeuduin Turun ammattikorkeakouluun ja valmistuin joulukuussa 2025.",
-      "Tutkinnon ohessa kävin lisäkursseja muissa korkeakouluissa kiinnostuksesta, esimerkiksi Azure Fundamentalsin ja PowerShellin Metropoliassa. Työskentelen itsenäisesti. Kun jumitun, sanon sen ja kysyn apua sen sijaan että hukkaisin päivän.",
+      "Tein noin viisi vuotta töitä rakennuspeltiseppänä. Vuonna 2022 vaihdoin alaa, hakeuduin Turun ammattikorkeakouluun ja valmistuin joulukuussa 2025.",
+      "Tutkinnon ohessa kävin lisäkursseja muissa korkeakouluissa kiinnostuksesta, esimerkiksi Azure Fundamentalsin ja PowerShellin Metropoliassa.",
       "Nyt haen ensimmäistä vakituista roolia data engineeringin tai tekoälyn parissa.",
     ],
     timeline: [
