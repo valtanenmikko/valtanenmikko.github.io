@@ -16,6 +16,7 @@ export interface Project {
   facts?: Fact[];
   stack: string[];
   link?: { href: string; label: string };
+  repo?: { href: string; label: string };
   status?: string;
 }
 
@@ -109,12 +110,14 @@ const en: Content = {
     featured: {
       id: "infra",
       kind: "Personal project",
-      status: "In progress",
+      status: "Live",
+      link: { href: "https://valtanenmikko.github.io/infra-intelligence/", label: "Demo site" },
+      repo: { href: "https://github.com/valtanenmikko/infra-intelligence", label: "Source on GitHub" },
       title: "Tender intelligence for infrastructure contractors",
       summary:
         "A bid team needs to know which open tenders are worth bidding on, who the competitors are and where competition is thin. This pipeline answers that from public EU procurement data and the Finnish company register.",
       points: [
-        "ELT pipeline on Databricks using the medallion architecture. Bronze keeps raw data unchanged, Silver cleans it, Gold holds the SQL tables for analysis.",
+        "ELT pipeline on Databricks using the medallion architecture, run daily. Bronze keeps raw data unchanged, Silver cleans it, Gold holds the SQL tables for analysis.",
         "Companies are matched by business ID through the PRH register, not by name. Data quality problems I found are fixed in code and documented.",
         "An LLM extracts location and contract period from free text. Its output is checked against structured fields the model never sees.",
       ],
@@ -288,12 +291,14 @@ const fi: Content = {
     featured: {
       id: "infra",
       kind: "Oma projekti",
-      status: "Työn alla",
+      status: "Julkaistu",
+      link: { href: "https://valtanenmikko.github.io/infra-intelligence/", label: "Demosivu" },
+      repo: { href: "https://github.com/valtanenmikko/infra-intelligence", label: "Lähdekoodi GitHubissa" },
       title: "Tarjouskilpailuanalytiikka infraurakoitsijoille",
       summary:
         "Tarjoustiimin pitää tietää, mihin avoimiin kilpailuihin kannattaa tarjota, ketkä kilpailevat vastaan ja missä kilpailu on vähäistä. Putki vastaa näihin EU:n julkisten hankintojen datasta ja PRH:n yritysrekisteristä.",
       points: [
-        "ELT-putki Databricksissa medallion-arkkitehtuurilla. Bronze säilyttää raakadatan muuttumattomana, Silver puhdistaa sen ja Goldissa ovat analyysin SQL-taulut.",
+        "ELT-putki Databricksissa medallion-arkkitehtuurilla, ajetaan päivittäin. Bronze säilyttää raakadatan muuttumattomana, Silver puhdistaa sen ja Goldissa ovat analyysin SQL-taulut.",
         "Yritykset yhdistetään Y-tunnuksella PRH:n rekisterin kautta, ei nimen perusteella. Löytämäni datan laatuongelmat on korjattu koodissa ja dokumentoitu.",
         "Kielimalli poimii vapaasta tekstistä sijainnin ja sopimuskauden. Tuloksia verrataan rakenteisiin kenttiin, joita malli ei näe.",
       ],

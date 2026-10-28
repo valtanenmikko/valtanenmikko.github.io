@@ -105,6 +105,16 @@ export default function Projects({ lang }: { lang: Lang }) {
               <p className="card-summary">{f.summary}</p>
               <Points items={f.points} />
               <Stack items={f.stack} />
+              <div className="featured-links">
+                {[f.link, f.repo].map(
+                  (l) =>
+                    l && (
+                      <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="link-arrow">
+                        {l.label} ↗<span className="sr-only"> {c.contact.newTab}</span>
+                      </a>
+                    ),
+                )}
+              </div>
             </div>
             <PipelineFigure d={t.pipeline} />
           </article>
@@ -129,6 +139,7 @@ export default function Projects({ lang }: { lang: Lang }) {
       </div>
 
       <style>{`
+        .featured-links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 20px; }
         .section-intro { margin-top: 14px; color: var(--muted); font-size: 17px; }
 
         .featured {
