@@ -119,7 +119,8 @@ const en: Content = {
       points: [
         "ELT pipeline on Databricks using the medallion architecture, run daily. Bronze keeps raw data unchanged, Silver cleans it, Gold holds the SQL tables for analysis.",
         "Companies are matched by business ID through the PRH register, not by name. Data quality problems I found are fixed in code and documented.",
-        "An LLM extracts location and contract period from free text. Its output is checked against structured fields the model never sees.",
+        "An LLM extracts location, contract period and risk factors from free text. Its output is checked against structured fields the model never sees.",
+        "The go/no-go score is computed with fixed weights, and the history factors are backtested on past awards. A bid portfolio planner suggests how many tenders to bid on given limited capacity.",
       ],
       stack: ["Python", "Databricks", "Delta Lake", "Spark SQL", "Unity Catalog", "Gemini API", "REST APIs"],
     },
@@ -130,7 +131,7 @@ const en: Content = {
       silver: "Typed, deduplicated, resolved by business ID",
       llm: "LLM extraction + evaluation",
       gold: "Market share, competition, open tenders",
-      out: "Go/no-go per open tender",
+      out: "Go/no-go + bid portfolio",
     },
     items: [
       {
@@ -300,7 +301,8 @@ const fi: Content = {
       points: [
         "ELT-putki Databricksissa medallion-arkkitehtuurilla, ajetaan päivittäin. Bronze säilyttää raakadatan muuttumattomana, Silver puhdistaa sen ja Goldissa ovat analyysin SQL-taulut.",
         "Yritykset yhdistetään Y-tunnuksella PRH:n rekisterin kautta, ei nimen perusteella. Löytämäni datan laatuongelmat on korjattu koodissa ja dokumentoitu.",
-        "Kielimalli poimii vapaasta tekstistä sijainnin ja sopimuskauden. Tuloksia verrataan rakenteisiin kenttiin, joita malli ei näe.",
+        "Kielimalli poimii vapaasta tekstistä sijainnin, sopimuskauden ja riskitekijät. Tuloksia verrataan rakenteisiin kenttiin, joita malli ei näe.",
+        "Go/no-go-pisteet lasketaan kiinteillä painoilla, ja historiatekijät on testattu aiempia hankintoja vastaan. Tarjousportfolion suunnittelija ehdottaa, montako kilpailua kannattaa tarjota rajallisella kapasiteetilla.",
       ],
       stack: ["Python", "Databricks", "Delta Lake", "Spark SQL", "Unity Catalog", "Gemini API", "REST APIs"],
     },
@@ -311,7 +313,7 @@ const fi: Content = {
       silver: "Tyypitetty, deduplikoitu, Y-tunnuksella yhdistetty",
       llm: "LLM-poiminta + arviointi",
       gold: "Markkinaosuudet, kilpailu, avoimet kilpailut",
-      out: "Go/no-go jokaiselle avoimelle kilpailulle",
+      out: "Go/no-go + tarjousportfolio",
     },
     items: [
       {
