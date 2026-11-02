@@ -156,7 +156,7 @@ const en: Content = {
         id: "jobs",
         kind: "Personal project",
         title: "Job market intelligence pipeline",
-        summary: "Collects Finnish IT job listings and produces a filtered weekly shortlist.",
+        summary: "Collects Finnish IT job listings and produces a filtered shortlist.",
         points: [
           "Scrapes Duunitori and TE-palvelut with Playwright.",
           "The Claude API turns each listing into structured fields: skills, seniority and remote status.",
@@ -338,7 +338,7 @@ const fi: Content = {
         id: "jobs",
         kind: "Oma projekti",
         title: "Työmarkkinadatan putki",
-        summary: "Kerää suomalaiset IT-alan työpaikkailmoitukset ja tekee niistä suodatetun viikkolistan.",
+        summary: "Kerää suomalaiset IT-alan työpaikkailmoitukset ja tekee niistä suodatetun listan.",
         points: [
           "Kerää ilmoitukset Duunitorista ja TE-palveluista Playwrightilla.",
           "Claude API muuttaa jokaisen ilmoituksen rakenteiseksi dataksi: osaamisvaatimukset, senioriteetti ja etätyömahdollisuus.",
