@@ -146,6 +146,9 @@ a {
 }
 
 .link-arrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--font-mono), monospace;
   font-size: 14px;
   font-weight: 500;

@@ -94,6 +94,7 @@ export default function Nav({ lang, onLangChange }: NavProps) {
         }
         .nav-inner { height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
         .nav-logo {
+          display: inline-flex; align-items: center; min-height: 44px;
           font-family: var(--font-sans), sans-serif; font-weight: 600; font-size: 18px;
           letter-spacing: -0.02em; color: var(--dark); text-decoration: none;
         }
