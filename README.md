@@ -11,5 +11,4 @@ npm run build   # static export to out/
 ```
 
 `npm run build` first runs `scripts/turkumove-stats.mjs`, which refreshes the TurkuMove venue counts in
-`lib/turkumove-stats.json`. Pushes to `main` deploy to GitHub Pages through `.github/workflows/deploy.yml`,
-which also rebuilds daily.
+`lib/turkumove-stats.json`. Pushes to `main` deploy to GitHub Pages through `.github/workflows/deploy.yml`.

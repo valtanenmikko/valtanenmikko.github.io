@@ -4,9 +4,6 @@ on:
   push:
     branches: [master, main]
   workflow_dispatch:
-  schedule:
-    # Daily rebuild so TurkuMove venue counts stay current
-    - cron: "0 4 * * *"
 
 permissions:
   contents: read
