@@ -19,7 +19,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 const title = "Mikko Valtanen · Junior Data Engineer";
 const description =
-  "Junior data engineer in Turku, Finland. Data pipelines with Python, SQL, Databricks and Airflow. BBA in Data Engineering & AI, Turku UAS 2025. Looking for data engineering and AI roles in Turku or remote.";
+  "Junior data engineer in Turku, Finland. Data pipelines with Python, SQL, Databricks and Airflow. BBA in Data Engineering & AI, Turku UAS 2025. Looking for data engineering and AI roles in Turku (on-site or hybrid) or remote.";
 
 export const metadata: Metadata = {
   title,
